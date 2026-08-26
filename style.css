@@ -2234,46 +2234,230 @@ footer a:hover {
 }
 
 
-/* ================= RESPONSIVE ================= */
+/* =====================================================
+   LAPTOP & DESKTOP RESPONSIVE BREAKPOINTS
+   (Specialized for 15.6" FHD & 13"-14" Laptop Displays)
+===================================================== */
 
-@media(max-width:1200px) {
-
-    .tools-grid {
-
-        grid-template-columns: repeat(3,1fr);
-
+/* ================= 15.6 INCH LAPTOP SCREENS (1400px - 1750px / 1920x1080 @ 125%) ================= */
+@media (min-width: 1400px) and (max-width: 1750px) {
+    .sidebar {
+        width: 240px;
     }
+    .main {
+        margin-left: 240px;
+    }
+    .page {
+        padding: 22px 28px;
+        max-width: 1540px;
+    }
+    .welcome-grid {
+        grid-template-columns: 2.15fr 1fr;
+        gap: 16px;
+    }
+    .welcome-card {
+        padding: 24px;
+        min-height: 220px;
+    }
+    .welcome-card h1 {
+        font-size: 28px;
+    }
+    .house-illustration {
+        width: 250px;
+        right: 18px;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+    .dimension-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+    .tools-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 12px;
+    }
+    .photo-gallery-grid {
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 12px !important;
+    }
+    .material-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .construction-grid {
+        grid-template-columns: minmax(270px, 0.85fr) minmax(380px, 1.2fr) minmax(260px, 0.85fr);
+        gap: 18px;
+    }
+}
 
+/* ================= 13 INCH TO 14 INCH LAPTOP SCREENS (1024px - 1399px / 1366x768 / 1280x800 / 1440x900) ================= */
+@media (min-width: 1024px) and (max-width: 1399px) {
+    .sidebar {
+        width: 215px;
+        padding: 16px 12px;
+    }
+    .brand {
+        margin-bottom: 20px;
+    }
+    .brand h2 {
+        font-size: 17px;
+    }
+    .nav-item {
+        padding: 9px 12px;
+        font-size: 13px;
+        gap: 10px;
+        margin-bottom: 3px;
+    }
+    .sidebar-tip {
+        padding: 12px;
+        margin-top: 15px;
+    }
+    .sidebar-tip h3 {
+        font-size: 13px;
+    }
+    .sidebar-tip p {
+        font-size: 11px;
+    }
+    .main {
+        margin-left: 215px;
+    }
+    .topbar {
+        padding: 0 20px;
+        height: 60px;
+    }
+    .page {
+        padding: 18px 20px;
+        max-width: 100%;
+    }
+    .welcome-grid {
+        grid-template-columns: 1.8fr 1fr;
+        gap: 14px;
+    }
+    .welcome-card {
+        padding: 20px;
+        min-height: 200px;
+    }
+    .welcome-card h1 {
+        font-size: 24px;
+        margin: 8px 0;
+    }
+    .welcome-card p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .house-illustration {
+        width: 210px;
+        right: 14px;
+    }
+    .overview-card {
+        padding: 16px;
+    }
+    .overview-card h3 {
+        font-size: 15px;
+    }
+    .overview-row {
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    .stat-card {
+        padding: 14px 12px;
+    }
+    .stat-card h2 {
+        font-size: 18px;
+    }
+    .dimension-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    .dim-card {
+        padding: 12px;
+    }
+    .dim-card input {
+        padding: 8px;
+        font-size: 13px;
+    }
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    .tool-card {
+        padding: 12px;
+    }
+    .photo-gallery-grid {
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 8px !important;
+    }
+    .gallery-photo-card .photo-label {
+        font-size: 0.72rem !important;
+    }
+    .gallery-photo-card .photo-area {
+        font-size: 0.64rem !important;
+    }
+    .material-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .calculator-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .construction-grid {
+        grid-template-columns: minmax(230px, 0.85fr) minmax(310px, 1.2fr) minmax(220px, 0.85fr);
+        gap: 14px;
+    }
+    .technical-row {
+        grid-template-columns: 44px 1fr 1.2fr 0.9fr 0.9fr;
+        padding: 8px;
+        font-size: 11px;
+    }
+    .table-scroll table th, .table-scroll table td {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* ================= 901px - 1023px (TABLETS LANDSCAPE & SUB-NOTEBOOKS) ================= */
+@media (min-width: 901px) and (max-width: 1023px) {
+    .sidebar {
+        width: 195px;
+        padding: 12px 8px;
+    }
+    .main {
+        margin-left: 195px;
+    }
     .welcome-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
-
-    .welcome-card {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-
-    .house-illustration {
-        position: static;
-        transform: none;
-        width: 240px;
-        flex-shrink: 0;
-        display: block;
+    .dimension-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .photo-gallery-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+    }
+    .material-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .construction-grid {
-        grid-template-columns: minmax(250px, .8fr) minmax(340px, 1.2fr);
+        grid-template-columns: 1fr 1.2fr;
     }
-
     .construction-preview {
         grid-column: 1 / -1;
-        max-width: 420px;
-        position: static;
+        max-width: 480px;
     }
-
 }
 
 
