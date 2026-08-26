@@ -1,5 +1,5 @@
 /* =====================================================
-   GHARSETU | SMART HOME CONSTRUCTION PLANNER ENGINE
+   GHAR.SETUP.PRO | SMART HOME CONSTRUCTION PLANNER ENGINE
 ===================================================== */
 
 /* =====================================================
@@ -396,7 +396,7 @@ function showPage(page, button = null) {
 
     const titleEl = document.getElementById("pageTitle");
     if (titleEl) {
-        titleEl.innerText = titles[page] || "GharSetu";
+        titleEl.innerText = titles[page] || "ghar.setup.pro";
     }
 
     const sidebar = document.getElementById("sidebar");
@@ -1710,7 +1710,7 @@ function resetProject() {
 
 function exportProjectData() {
     const project = {
-        name: "GharSetu Construction Plan",
+        name: "ghar.setup.pro Construction Plan",
         exportedAt: new Date().toISOString(),
         dimensions: {
             length: document.getElementById("length")?.value || 50,
@@ -1726,7 +1726,7 @@ function exportProjectData() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `gharsetu-estimate-${new Date().toISOString().slice(0,10)}.json`;
+    a.download = `ghar-setup-pro-estimate-${new Date().toISOString().slice(0,10)}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
