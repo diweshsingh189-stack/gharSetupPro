@@ -92,200 +92,134 @@ button {
 /* ================= SIDEBAR ================= */
 
 .sidebar {
-
     width: 245px;
-
     height: 100vh;
-
+    height: 100dvh;
     position: fixed;
-
     left: 0;
     top: 0;
-
+    bottom: 0;
     background: var(--sidebar);
-
     color: white;
-
-    padding: 25px 15px;
-
+    padding: 16px 12px 24px;
     display: flex;
-
     flex-direction: column;
-
     z-index: 1000;
-
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
+.sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
-
-    padding: 5px 10px 35px;
-
+    gap: 10px;
+    padding: 4px 6px 16px;
+    flex-shrink: 0;
 }
-
 
 .brand-logo {
-
-    width: 42px;
-    height: 42px;
-
+    width: 38px;
+    height: 38px;
     border: 2px solid #74a9ff;
-
-    border-radius: 12px;
-
+    border-radius: 10px;
     display: grid;
-
     place-items: center;
-
-    font-size: 25px;
-
+    font-size: 20px;
     color: #78aaff;
-
+    flex-shrink: 0;
 }
-
 
 .brand h2 {
-
-    font-size: 20px;
-
+    font-size: 18px;
 }
-
 
 .brand span {
-
     display: block;
-
     font-size: 8px;
-
     letter-spacing: 1.2px;
-
     color: #9eb3cc;
-
     margin-top: 3px;
-
 }
-
 
 .navigation {
-
     display: flex;
-
     flex-direction: column;
-
-    gap: 4px;
-
+    gap: 2px;
+    flex-shrink: 0;
 }
-
 
 .nav-item {
-
     border: 0;
-
     background: transparent;
-
     color: #aab9cb;
-
     text-align: left;
-
-    padding: 12px 13px;
-
+    padding: 9px 12px;
     border-radius: 8px;
-
     display: flex;
-
     align-items: center;
-
-    gap: 13px;
-
+    gap: 12px;
+    font-size: 13.5px;
     transition: .2s;
-
 }
-
 
 .nav-item span {
-
     width: 20px;
-
     text-align: center;
-
 }
-
 
 .nav-item:hover,
 .nav-item.active {
-
     background: #1463dd;
-
     color: white;
-
 }
-
 
 .sidebar-tip {
-
-    margin-top: auto;
-
-    padding: 17px;
-
+    margin-top: 14px;
+    padding: 12px 14px;
     background: rgba(255,255,255,.07);
-
     border: 1px solid rgba(255,255,255,.08);
-
     border-radius: 10px;
-
+    flex-shrink: 0;
 }
-
 
 .sidebar-tip span {
-
     color: #70a6ff;
-
     font-size: 9px;
-
     letter-spacing: 1px;
-
 }
-
 
 .sidebar-tip h3 {
-
-    margin: 8px 0;
-
-    font-size: 18px;
-
+    margin: 6px 0 4px;
+    font-size: 15px;
 }
-
 
 .sidebar-tip p {
-
     color: #a9b8ca;
-
     font-size: 11px;
-
-    line-height: 1.6;
-
+    line-height: 1.5;
 }
-
 
 .sidebar-bottom {
-
-    padding: 20px 10px 0;
-
+    padding: 14px 6px 20px 6px;
     color: #8fa2b7;
-
+    font-size: 11px;
+    flex-shrink: 0;
 }
 
-
 .sidebar-bottom small {
-
     color: #5d8ed8;
-
 }
 
 
@@ -4287,6 +4221,13 @@ body.sidebar-open {
     }
 
     .sidebar {
+        width: 270px;
+        max-width: 84vw;
+        height: 100vh;
+        height: 100dvh;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: calc(50px + env(safe-area-inset-bottom, 0px)) !important;
         z-index: 100 !important;
         box-shadow: 4px 0 30px rgba(0,0,0,0.5);
     }
