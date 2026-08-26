@@ -370,17 +370,20 @@ function showPage(page, button = null) {
         filterCurrentPage("", "checklist");
     }
 
-    document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".nav-item, .mobile-nav-item").forEach(btn => btn.classList.remove("active"));
 
-    if (button) {
-        button.classList.add("active");
-    } else {
-        document.querySelectorAll(".nav-item").forEach(btn => {
-            const attr = btn.getAttribute("onclick") || "";
-            if (attr.includes(`'${page}'`) || attr.includes(`"${page}"`)) {
-                btn.classList.add("active");
-            }
-        });
+    // Sync sidebar nav active
+    document.querySelectorAll(".nav-item").forEach(btn => {
+        const attr = btn.getAttribute("onclick") || "";
+        if (attr.includes(`'${page}'`) || attr.includes(`"${page}"`)) {
+            btn.classList.add("active");
+        }
+    });
+
+    // Sync mobile bottom nav active
+    const mobileBtn = document.querySelector(`.mobile-nav-item[data-page="${page}"]`);
+    if (mobileBtn) {
+        mobileBtn.classList.add("active");
     }
 
     const titles = {
@@ -400,9 +403,10 @@ function showPage(page, button = null) {
     }
 
     const sidebar = document.getElementById("sidebar");
-    if (sidebar) {
-        sidebar.classList.remove("open");
-    }
+    const overlay = document.getElementById("sidebarOverlay");
+    if (sidebar) sidebar.classList.remove("open");
+    if (overlay) overlay.classList.remove("active");
+    document.body.classList.remove("sidebar-open");
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -421,18 +425,27 @@ function showPage(page, button = null) {
 ===================================================== */
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
-    if (sidebar) {
-        sidebar.classList.toggle("open");
+    const overlay = document.getElementById("sidebarOverlay");
+    if (!sidebar) return;
+
+    const isOpen = sidebar.classList.toggle("open");
+    if (overlay) {
+        overlay.classList.toggle("active", isOpen);
     }
+    document.body.classList.toggle("sidebar-open", isOpen);
+    playSound("click");
 }
 
 // Close sidebar on mobile when clicking outside
 document.addEventListener("click", (e) => {
     const sidebar = document.getElementById("sidebar");
     const menuBtn = document.querySelector(".menu-btn");
+    const overlay = document.getElementById("sidebarOverlay");
     if (sidebar && sidebar.classList.contains("open")) {
         if (!sidebar.contains(e.target) && (!menuBtn || !menuBtn.contains(e.target))) {
             sidebar.classList.remove("open");
+            if (overlay) overlay.classList.remove("active");
+            document.body.classList.remove("sidebar-open");
         }
     }
 });

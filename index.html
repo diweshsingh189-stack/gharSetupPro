@@ -15,11 +15,14 @@
 <!-- ================= SIDEBAR ================= -->
 <aside class="sidebar" id="sidebar">
     <div class="brand">
-        <div class="brand-logo">⌂</div>
-        <div>
-            <h2>ghar.setup.pro</h2>
-            <span>BUILD WITH CONFIDENCE</span>
+        <div class="brand-left">
+            <div class="brand-logo">⌂</div>
+            <div>
+                <h2>ghar.setup.pro</h2>
+                <span>BUILD WITH CONFIDENCE</span>
+            </div>
         </div>
+        <button class="sidebar-mobile-close" onclick="toggleSidebar()" aria-label="Close Navigation Menu">✕</button>
     </div>
 
     <nav class="navigation">
@@ -952,6 +955,37 @@
     </div>
 </div>
 
+
+<!-- SIDEBAR BACKDROP OVERLAY FOR MOBILE -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+<!-- MOBILE BOTTOM NAVIGATION BAR -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Navigation">
+    <button class="mobile-nav-item active" data-page="dashboard" onclick="showPage('dashboard', this)">
+        <span class="mobile-nav-icon">⌂</span>
+        <span class="mobile-nav-label">Home</span>
+    </button>
+    <button class="mobile-nav-item" data-page="estimate" onclick="showPage('estimate', this)">
+        <span class="mobile-nav-icon">₹</span>
+        <span class="mobile-nav-label">Estimate</span>
+    </button>
+    <button class="mobile-nav-item" data-page="materials" onclick="showPage('materials', this)">
+        <span class="mobile-nav-icon">▦</span>
+        <span class="mobile-nav-label">Materials</span>
+    </button>
+    <button class="mobile-nav-item" data-page="measurements" onclick="showPage('measurements', this)">
+        <span class="mobile-nav-icon">📐</span>
+        <span class="mobile-nav-label">Tools</span>
+    </button>
+    <button class="mobile-nav-item" data-page="construction" onclick="showPage('construction', this)">
+        <span class="mobile-nav-icon">⚒</span>
+        <span class="mobile-nav-label">Roadmap</span>
+    </button>
+    <button class="mobile-nav-item" onclick="toggleSidebar()" aria-label="More Options">
+        <span class="mobile-nav-icon">☰</span>
+        <span class="mobile-nav-label">More</span>
+    </button>
+</nav>
 
 <!-- TOAST NOTIFICATION -->
 <div id="toast"></div>
