@@ -1,0 +1,2955 @@
+ 
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GharSetu | Smart Home Construction Planner</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="dark" style="">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">⌂</div>
+
+        <div>
+            <h2>GharSetu</h2>
+            <span>BUILD WITH CONFIDENCE</span>
+        </div>
+    </div>
+
+    <nav class="navigation">
+
+        <button class="nav-item active" onclick="showPage(&#39;dashboard&#39;, this)">
+            <span>⌂</span> Dashboard
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;estimate&#39;, this)">
+            <span>₹</span> Estimate
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;materials&#39;, this)">
+            <span>▦</span> Materials
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;measurements&#39;, this)">
+            <span>⌗</span> Measurements
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;construction&#39;, this)">
+            <span>⚒</span> Construction
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;checklist&#39;, this)">
+            <span>✓</span> Checklist
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;reports&#39;, this)">
+            <span>▤</span> Reports
+        </button>
+
+        <button class="nav-item" onclick="showPage(&#39;feedback&#39;, this)">
+            <span>♡</span> Feedback
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-tip">
+
+        <span>SMART BUILDING</span>
+
+        <h3>Plan Smart.<br>Build Better.</h3>
+
+        <p>
+            Keep your construction,
+            budget and materials
+            organized in one place.
+        </p>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <small>GHARSETU</small>
+
+        <p>Home Construction Platform</p>
+
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div class="mobile-left">
+
+            <button class="menu-btn" onclick="toggleSidebar()">
+                ☰
+            </button>
+
+            <div>
+                <small>HOME CONSTRUCTION</small>
+                <h3 id="pageTitle">Dashboard</h3>
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <div class="search-wrapper">
+                <div class="search">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="globalSearch" placeholder="Search materials, tools, guides..." oninput="globalSearch()" onfocus="showSearchDropdown()" onkeydown="handleSearchKey(event)" autocomplete="off">
+                    <button id="clearSearchBtn" class="clear-search-btn" onclick="clearSearch()" title="Clear search" style="display: none;">✕</button>
+                </div>
+                <div id="searchDropdown" class="search-dropdown" style="display: none;"></div>
+            </div>
+
+
+            <!-- SOUND TOGGLE -->
+            <button id="soundBtn" class="sound-btn" onclick="toggleSound()" title="Toggle Sound Effects">🔊</button>
+
+            <!-- THEME TOGGLE -->
+
+            <div class="theme-switch">
+
+                <button id="lightBtn" class="theme-option" onclick="setTheme(&#39;light&#39;)">
+                    ☀
+                </button>
+
+                <button id="darkBtn" class="theme-option active" onclick="setTheme(&#39;dark&#39;)">
+                    ◐
+                </button>
+
+            </div>
+
+
+            <button class="icon-btn">
+                ♧
+            </button>
+
+            <button class="profile-btn">
+                U
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="page active">
+
+        <div class="welcome-grid">
+
+            <div class="welcome-card">
+
+                <div class="welcome-content">
+
+                    <span class="tag">
+                        YOUR HOME · YOUR PLAN
+                    </span>
+
+                    <h1>
+                        Build your dream home
+                        <span>with complete transparency.</span>
+                    </h1>
+
+                    <p>
+                        Plan your construction, calculate
+                        material costs, track progress and
+                        understand every major stage of your
+                        house construction.
+                    </p>
+
+                    <div class="welcome-buttons">
+
+                        <button class="primary-btn" onclick="showPage(&#39;estimate&#39;)">
+
+                            Start New Estimate →
+
+                        </button>
+
+                        <button class="secondary-btn" onclick="showPage(&#39;reports&#39;)">
+
+                            ↓ Report
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="house-illustration">
+
+                    <div class="house">
+                        <div class="roof"></div>
+
+                        <div class="house-body">
+
+                            <div class="window"></div>
+                            <div class="window"></div>
+
+                            <div class="door"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT OVERVIEW -->
+
+            <div class="overview-card">
+
+                <div class="card-heading">
+
+                    <h3>Project Overview</h3>
+
+                    <span class="status">
+                        Planning
+                    </span>
+
+                </div>
+
+                <div class="overview-row">
+                    <span>⌂ Built-up Area</span>
+                    <strong id="overviewArea">53,450 sq.ft</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>₹ Estimated Cost</span>
+                    <strong id="overviewCost">₹36,37,050</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>◉ Cost / sq.ft</span>
+                    <strong id="overviewSqft">₹68</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>✓ Project Status</span>
+                    <strong class="green">Planning</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        
+        <!-- ===== 2026 TRENDING HOUSE DESIGNS GALLERY ===== -->
+
+        <!-- Banner Button: Click to Open Gallery -->
+        <div class="photo-gallery-banner" id="galleryBanner" onclick="togglePhotoGallery()">
+            <div class="gallery-banner-content">
+                <div class="gallery-banner-left">
+                    <span class="gallery-banner-icon">ðŸ&nbsp;</span>
+                    <div>
+                        <strong>2026 Trending House Designs</strong>
+                        <span>India ke latest modern ghar â€” click karein aur inspire hon!</span>
+                    </div>
+                </div>
+                <div class="gallery-banner-right">
+                    <span class="gallery-banner-preview">
+                        <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1600047509807-ba8f99d2cdde" alt="" onerror="this.style.display=&#39;none&#39;">
+                        <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1613977257363-707ba9348227" alt="" onerror="this.style.display=&#39;none&#39;">
+                        <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1580587771525-78b9dba3b914" alt="" onerror="this.style.display=&#39;none&#39;">
+                    </span>
+                    <button class="gallery-open-btn">
+                        <span id="galleryBtnIcon">â–¼</span> 2026 Designs Dekhein
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10 Photo Gallery Grid (opens on click) -->
+        <div class="photo-gallery-section" id="photoGallerySection" style="display: none;">
+            <div class="gallery-section-header">
+                <div>
+                    <span class="gallery-tag">🔥 TRENDING 2026</span>
+                    <h2>2026 Modern House Designs â€” India</h2>
+                    <p>Latest trending ghar designs â€” apne sapno ka ghar chunein</p>
+                </div>
+                <button class="gallery-close-btn" onclick="togglePhotoGallery()">✕ Close</button>
+            </div>
+
+            <div class="photo-gallery-grid">
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(0)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1600047509807-ba8f99d2cdde(1)" alt="Minimalist White Villa 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house1/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏠 Minimalist White Villa</span>
+                        <span class="photo-area">4BHK • 3,200 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(1)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1613977257363-707ba9348227(1)" alt="Luxury Modern Villa 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house2/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">✨ Luxury Pool Villa</span>
+                        <span class="photo-area">5BHK • 4,500 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(2)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1580587771525-78b9dba3b914(1)" alt="Contemporary Smart Home 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house3/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🤖 Smart Contemporary Home</span>
+                        <span class="photo-area">3BHK • 2,400 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(3)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/569-600x400.jpg" alt="Glass Steel Modern House 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house4/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🪟 Glass &amp; Steel Design</span>
+                        <span class="photo-area">4BHK • 3,600 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(4)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1523217582562-09d0def993a6" alt="Premium Bungalow 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house5/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏠 Premium Bungalow</span>
+                        <span class="photo-area">4BHK • 3,000 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(5)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1600585154340-be6161a56a0c" alt="Eco Green Smart Home 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house6/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🌿 Eco Green Smart Home</span>
+                        <span class="photo-area">3BHK • 2,100 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(6)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1512917774080-9991f1c4c750" alt="Ultra Modern Duplex 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house7/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏔 Ultra Modern Duplex</span>
+                        <span class="photo-area">5BHK • 4,800 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(7)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1564013799919-ab600027ffc6" alt="White Luxury Mansion 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house8/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">💎 White Luxury Mansion</span>
+                        <span class="photo-area">6BHK • 6,000 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(8)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1558618666-fcd25c85cd64" alt="Scandinavian Style Home 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house9/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">❄ Scandinavian Style Home</span>
+                        <span class="photo-area">3BHK • 2,200 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(9)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1583608205776-bfd35f0d9f83" alt="Tropical Resort Villa 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house10/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🌴 Tropical Resort Villa</span>
+                        <span class="photo-area">4BHK • 3,500 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(10)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1600585154526-990dced4db0d" alt="Warm Courtyard House 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house11/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏠 Warm Courtyard House</span>
+                        <span class="photo-area">3BHK • 2,700 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(11)">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/photo-1600607687920-4e2a09cf159d" alt="Modern Family Residence 2026" loading="lazy" onerror="this.src=&#39;https://picsum.photos/seed/house12/600/400&#39;">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏡 Modern Family Residence</span>
+                        <span class="photo-area">4BHK • 3,800 sq.ft • 2026</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Gallery Lightbox Modal -->
+        <div class="gallery-lightbox-modal" id="galleryLightboxModal" style="display:none;" onclick="closeGalleryLightboxOutside(event)">
+            <div class="gallery-lightbox-inner">
+                <button class="lightbox-close" onclick="closeGalleryLightbox()">✕</button>
+                <button class="lightbox-prev" onclick="galleryLightboxNav(-1)">‹</button>
+                <img class="lightbox-img-full" id="lightboxImgFull" src="http://127.0.0.1:5500/index.html" alt="">
+                <div class="lightbox-caption" id="lightboxCaption"></div>
+                <button class="lightbox-next" onclick="galleryLightboxNav(1)">›</button>
+            </div>
+        </div>
+<!-- STATS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">₹</div>
+
+                <span>Total Estimate</span>
+
+                <h2 id="totalStat">₹36,37,050</h2>
+
+                <small>Current project estimate</small>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">▦</div>
+
+                <span>Material Cost</span>
+
+                <h2 id="materialStat">₹7,13,500</h2>
+
+                <small>Materials &amp; supplies</small>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">♙</div>
+
+                <span>Labour Cost</span>
+
+                <h2 id="labourStat">₹14,63,550</h2>
+
+                <small>Work &amp; labour</small>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">◇</div>
+
+                <span>Other Cost</span>
+
+                <h2 id="otherStat">₹14,60,000</h2>
+
+                <small>Finishing &amp; services</small>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROJECT DIMENSIONS -->
+
+        <div class="panel">
+
+            <div class="panel-title">
+
+                <div>
+                    <span>PROJECT SETUP</span>
+                    <h2>Project Dimensions</h2>
+                </div>
+
+                <small>
+                    Change values anytime
+                </small>
+
+            </div>
+
+
+            <div class="dimension-grid">
+
+                <label>
+                    Length (ft)
+
+                    <input id="length" type="number" value="50" oninput="updateProject()">
+                </label>
+
+
+                <label>
+                    Width (ft)
+
+                    <input id="width" type="number" value="30" oninput="updateProject()">
+                </label>
+
+
+                <label>
+                    Floors
+
+                    <input id="floors" type="number" value="1" min="1" oninput="updateProject()">
+                </label>
+
+
+                <div class="area-box">
+
+                    <span>BUILT-UP AREA</span>
+
+                    <strong id="areaDisplay">53,450</strong>
+
+                    <small>sq.ft</small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK TOOLS -->
+
+        <div class="section-header">
+
+            <div>
+                <span>QUICK TOOLS</span>
+                <h2>Everything you need</h2>
+            </div>
+
+        </div>
+
+
+        <div class="tools-grid">
+
+            <button onclick="showPage(&#39;measurements&#39;)">
+                <b>⌗</b>
+                <strong>Measurements</strong>
+                <small>Area &amp; volume calculators</small>
+            </button>
+
+            <button onclick="showPage(&#39;materials&#39;)">
+                <b>▦</b>
+                <strong>Materials Guide</strong>
+                <small>Know what each material does</small>
+            </button>
+
+            <button onclick="showPage(&#39;construction&#39;)">
+                <b>⚒</b>
+                <strong>Construction Stages</strong>
+                <small>Foundation to finishing</small>
+            </button>
+
+            <button onclick="showPage(&#39;checklist&#39;)">
+                <b>✓</b>
+                <strong>Checklist</strong>
+                <small>Don't miss important tasks</small>
+            </button>
+
+            <button onclick="showPage(&#39;reports&#39;)">
+                <b>▤</b>
+                <strong>Reports</strong>
+                <small>Print your estimate</small>
+            </button>
+
+            <button onclick="showPage(&#39;feedback&#39;)">
+                <b>♡</b>
+                <strong>Feedback</strong>
+                <small>Help us improve</small>
+            </button>
+
+        </div>
+
+
+        <!-- TIPS -->
+
+        <div class="bottom-grid">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <div>
+                        <span>RECENT ACTIVITY</span>
+                        <h2>Project Activity</h2>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <span>✓</span>
+                    <div>
+                        <strong>Project created</strong>
+                        <small>Today</small>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <span>₹</span>
+                    <div>
+                        <strong>Estimate ready</strong>
+                        <small>Just now</small>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <span>⌗</span>
+                    <div>
+                        <strong>Measurements available</strong>
+                        <small>Ready to use</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="panel tips">
+
+                <span>SMART TIPS</span>
+
+                <h2>Tips for your construction</h2>
+
+                <p>
+                    ✓ Compare rates from multiple suppliers.
+                </p>
+
+                <p>
+                    ✓ Don't buy large quantities without checking quality.
+                </p>
+
+                <p>
+                    ✓ Keep structural decisions with qualified professionals.
+                </p>
+
+                <p>
+                    ✓ Keep a small contingency budget for unexpected costs.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ESTIMATE ================= -->
+
+    <section id="estimate" class="page">
+
+        <div class="page-header">
+
+            <span>COST PLANNER</span>
+
+            <h1>
+                Construction
+                <em>Estimate</em>
+            </h1>
+
+            <p>
+                Edit quantity and rate. The amount and
+                project total update automatically.
+            </p>
+
+        </div>
+
+
+        <div class="warning">
+
+            ⚠️
+            <strong>Indicative rates:</strong>
+
+            Rates are demo/indicative only.
+            Actual prices vary by city, brand,
+            quality, supplier and market conditions.
+
+        </div>
+
+
+        <div class="estimate-panel">
+
+            <div class="table-scroll">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>ITEM</th>
+                            <th>USED FOR</th>
+                            <th>QUANTITY</th>
+                            <th>UNIT</th>
+                            <th>RATE / UNIT</th>
+                            <th>AMOUNT</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="estimateBody">
+            <tr id="estimate-row-0" data-search="cement concrete, mortar, plaster and masonry work.">
+                <td>1</td>
+                <td>
+                    🧱
+                    <strong>Cement</strong>
+                </td>
+                <td>Concrete, mortar, plaster and masonry work.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(0, -10)">−</button>
+
+                        <input id="item-qty-0" type="number" min="0" step="any" value="230" oninput="updateQuantity(0, this.value)" onchange="updateQuantity(0, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(0, 10)">+</button>
+                    </div>
+                </td>
+                <td><strong>Bag</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-0" type="number" min="0" step="any" value="415" oninput="updateRate(0, this.value)" onchange="updateRate(0, this.value)">
+                        <small>/ Bag</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-0">₹95,450</td>
+            </tr>
+        
+            <tr id="estimate-row-1" data-search="sand concrete, mortar and plaster.">
+                <td>2</td>
+                <td>
+                    🏖️
+                    <strong>Sand</strong>
+                </td>
+                <td>Concrete, mortar and plaster.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(1, -50)">−</button>
+
+                        <input id="item-qty-1" type="number" min="0" step="any" value="2500" oninput="updateQuantity(1, this.value)" onchange="updateQuantity(1, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(1, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-1" type="number" min="0" step="any" value="55" oninput="updateRate(1, this.value)" onchange="updateRate(1, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-1">₹1,37,500</td>
+            </tr>
+        
+            <tr id="estimate-row-2" data-search="aggregate / gitti concrete for rcc and pcc.">
+                <td>3</td>
+                <td>
+                    🪨
+                    <strong>Aggregate / Gitti</strong>
+                </td>
+                <td>Concrete for RCC and PCC.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(2, -50)">−</button>
+
+                        <input id="item-qty-2" type="number" min="0" step="any" value="2300" oninput="updateQuantity(2, this.value)" onchange="updateQuantity(2, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(2, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-2" type="number" min="0" step="any" value="2" oninput="updateRate(2, this.value)" onchange="updateRate(2, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-2">₹4,600</td>
+            </tr>
+        
+            <tr id="estimate-row-3" data-search="tmt steel reinforcement inside columns, beams and slabs.">
+                <td>4</td>
+                <td>
+                    🏗️
+                    <strong>TMT Steel</strong>
+                </td>
+                <td>Reinforcement inside columns, beams and slabs.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(3, -50)">−</button>
+
+                        <input id="item-qty-3" type="number" min="0" step="any" value="4000" oninput="updateQuantity(3, this.value)" onchange="updateQuantity(3, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(3, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>Kg</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-3" type="number" min="0" step="any" value="72" oninput="updateRate(3, this.value)" onchange="updateRate(3, this.value)">
+                        <small>/ Kg</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-3">₹2,88,000</td>
+            </tr>
+        
+            <tr id="estimate-row-4" data-search="bricks internal and external walls.">
+                <td>5</td>
+                <td>
+                    🧱
+                    <strong>Bricks</strong>
+                </td>
+                <td>Internal and external walls.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(4, -500)">−</button>
+
+                        <input id="item-qty-4" type="number" min="0" step="any" value="18000" oninput="updateQuantity(4, this.value)" onchange="updateQuantity(4, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(4, 500)">+</button>
+                    </div>
+                </td>
+                <td><strong>Piece</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-4" type="number" min="0" step="any" value="9" oninput="updateRate(4, this.value)" onchange="updateRate(4, this.value)">
+                        <small>/ Piece</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-4">₹1,62,000</td>
+            </tr>
+        
+            <tr id="estimate-row-5" data-search="binding wire tying steel reinforcement bars.">
+                <td>6</td>
+                <td>
+                    🪢
+                    <strong>Binding Wire</strong>
+                </td>
+                <td>Tying steel reinforcement bars.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(5, -5)">−</button>
+
+                        <input id="item-qty-5" type="number" min="0" step="any" value="70" oninput="updateQuantity(5, this.value)" onchange="updateQuantity(5, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(5, 5)">+</button>
+                    </div>
+                </td>
+                <td><strong>Kg</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-5" type="number" min="0" step="any" value="85" oninput="updateRate(5, this.value)" onchange="updateRate(5, this.value)">
+                        <small>/ Kg</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-5">₹5,950</td>
+            </tr>
+        
+            <tr id="estimate-row-6" data-search="stone dust filling, bedding and selected construction work.">
+                <td>7</td>
+                <td>
+                    🪨
+                    <strong>Stone Dust</strong>
+                </td>
+                <td>Filling, bedding and selected construction work.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(6, -50)">−</button>
+
+                        <input id="item-qty-6" type="number" min="0" step="any" value="500" oninput="updateQuantity(6, this.value)" onchange="updateQuantity(6, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(6, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-6" type="number" min="0" step="any" value="40" oninput="updateRate(6, this.value)" onchange="updateRate(6, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-6">₹20,000</td>
+            </tr>
+        
+            <tr id="estimate-row-7" data-search="excavation foundation trenches and pits.">
+                <td>8</td>
+                <td>
+                    🚜
+                    <strong>Excavation</strong>
+                </td>
+                <td>Foundation trenches and pits.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(7, -25)">−</button>
+
+                        <input id="item-qty-7" type="number" min="0" step="any" value="450" oninput="updateQuantity(7, this.value)" onchange="updateQuantity(7, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(7, 25)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-7" type="number" min="0" step="any" value="45" oninput="updateRate(7, this.value)" onchange="updateRate(7, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-7">₹20,250</td>
+            </tr>
+        
+            <tr id="estimate-row-8" data-search="pcc stable base below foundation.">
+                <td>9</td>
+                <td>
+                    🏗️
+                    <strong>PCC</strong>
+                </td>
+                <td>Stable base below foundation.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(8, -10)">−</button>
+
+                        <input id="item-qty-8" type="number" min="0" step="any" value="120" oninput="updateQuantity(8, this.value)" onchange="updateQuantity(8, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(8, 10)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-8" type="number" min="0" step="any" value="90" oninput="updateRate(8, this.value)" onchange="updateRate(8, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-8">₹10,800</td>
+            </tr>
+        
+            <tr id="estimate-row-9" data-search="rcc work slabs, beams, columns and structural elements.">
+                <td>10</td>
+                <td>
+                    🏗️
+                    <strong>RCC Work</strong>
+                </td>
+                <td>Slabs, beams, columns and structural elements.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(9, -50)">−</button>
+
+                        <input id="item-qty-9" type="number" min="0" step="any" value="1500" oninput="updateQuantity(9, this.value)" onchange="updateQuantity(9, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(9, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-9" type="number" min="0" step="any" value="320" oninput="updateRate(9, this.value)" onchange="updateRate(9, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-9">₹4,80,000</td>
+            </tr>
+        
+            <tr id="estimate-row-10" data-search="brick masonry construction of walls and partitions.">
+                <td>11</td>
+                <td>
+                    🧱
+                    <strong>Brick Masonry</strong>
+                </td>
+                <td>Construction of walls and partitions.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(10, -100)">−</button>
+
+                        <input id="item-qty-10" type="number" min="0" step="any" value="6000" oninput="updateQuantity(10, this.value)" onchange="updateQuantity(10, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(10, 100)">+</button>
+                    </div>
+                </td>
+                <td><strong>CFT</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-10" type="number" min="0" step="any" value="95" oninput="updateRate(10, this.value)" onchange="updateRate(10, this.value)">
+                        <small>/ CFT</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-10">₹5,70,000</td>
+            </tr>
+        
+            <tr id="estimate-row-11" data-search="plaster smooth protective surface for walls and ceilings.">
+                <td>12</td>
+                <td>
+                    🪵
+                    <strong>Plaster</strong>
+                </td>
+                <td>Smooth protective surface for walls and ceilings.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(11, -100)">−</button>
+
+                        <input id="item-qty-11" type="number" min="0" step="any" value="7500" oninput="updateQuantity(11, this.value)" onchange="updateQuantity(11, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(11, 100)">+</button>
+                    </div>
+                </td>
+                <td><strong>Sq.Ft</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-11" type="number" min="0" step="any" value="28" oninput="updateRate(11, this.value)" onchange="updateRate(11, this.value)">
+                        <small>/ Sq.Ft</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-11">₹2,10,000</td>
+            </tr>
+        
+            <tr id="estimate-row-12" data-search="waterproofing protects roofs, bathrooms and wet areas.">
+                <td>13</td>
+                <td>
+                    💧
+                    <strong>Waterproofing</strong>
+                </td>
+                <td>Protects roofs, bathrooms and wet areas.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(12, -50)">−</button>
+
+                        <input id="item-qty-12" type="number" min="0" step="any" value="1000" oninput="updateQuantity(12, this.value)" onchange="updateQuantity(12, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(12, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>Sq.Ft</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-12" type="number" min="0" step="any" value="45" oninput="updateRate(12, this.value)" onchange="updateRate(12, this.value)">
+                        <small>/ Sq.Ft</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-12">₹45,000</td>
+            </tr>
+        
+            <tr id="estimate-row-13" data-search="flooring finished walking surface.">
+                <td>14</td>
+                <td>
+                    🪨
+                    <strong>Flooring</strong>
+                </td>
+                <td>Finished walking surface.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(13, -50)">−</button>
+
+                        <input id="item-qty-13" type="number" min="0" step="any" value="1500" oninput="updateQuantity(13, this.value)" onchange="updateQuantity(13, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(13, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>Sq.Ft</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-13" type="number" min="0" step="any" value="90" oninput="updateRate(13, this.value)" onchange="updateRate(13, this.value)">
+                        <small>/ Sq.Ft</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-13">₹1,35,000</td>
+            </tr>
+        
+            <tr id="estimate-row-14" data-search="doors &amp; windows access, ventilation, daylight and security.">
+                <td>15</td>
+                <td>
+                    🚪
+                    <strong>Doors &amp; Windows</strong>
+                </td>
+                <td>Access, ventilation, daylight and security.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(14, -1)">−</button>
+
+                        <input id="item-qty-14" type="number" min="0" step="any" value="1" oninput="updateQuantity(14, this.value)" onchange="updateQuantity(14, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(14, 1)">+</button>
+                    </div>
+                </td>
+                <td><strong>Lot</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-14" type="number" min="0" step="any" value="220000" oninput="updateRate(14, this.value)" onchange="updateRate(14, this.value)">
+                        <small>/ Lot</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-14">₹2,20,000</td>
+            </tr>
+        
+            <tr id="estimate-row-15" data-search="electrical wiring, switches, sockets and lighting.">
+                <td>16</td>
+                <td>
+                    ⚡
+                    <strong>Electrical</strong>
+                </td>
+                <td>Wiring, switches, sockets and lighting.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(15, -50)">−</button>
+
+                        <input id="item-qty-15" type="number" min="0" step="any" value="1500" oninput="updateQuantity(15, this.value)" onchange="updateQuantity(15, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(15, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>Sq.Ft</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-15" type="number" min="0" step="any" value="110" oninput="updateRate(15, this.value)" onchange="updateRate(15, this.value)">
+                        <small>/ Sq.Ft</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-15">₹1,65,000</td>
+            </tr>
+        
+            <tr id="estimate-row-16" data-search="plumbing fresh water and wastewater systems.">
+                <td>17</td>
+                <td>
+                    🚰
+                    <strong>Plumbing</strong>
+                </td>
+                <td>Fresh water and wastewater systems.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(16, -50)">−</button>
+
+                        <input id="item-qty-16" type="number" min="0" step="any" value="1500" oninput="updateQuantity(16, this.value)" onchange="updateQuantity(16, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(16, 50)">+</button>
+                    </div>
+                </td>
+                <td><strong>Sq.Ft</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-16" type="number" min="0" step="any" value="90" oninput="updateRate(16, this.value)" onchange="updateRate(16, this.value)">
+                        <small>/ Sq.Ft</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-16">₹1,35,000</td>
+            </tr>
+        
+            <tr id="estimate-row-17" data-search="sanitary fittings wc, basin, shower and bathroom fittings.">
+                <td>18</td>
+                <td>
+                    🚿
+                    <strong>Sanitary Fittings</strong>
+                </td>
+                <td>WC, basin, shower and bathroom fittings.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(17, -1)">−</button>
+
+                        <input id="item-qty-17" type="number" min="0" step="any" value="1" oninput="updateQuantity(17, this.value)" onchange="updateQuantity(17, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(17, 1)">+</button>
+                    </div>
+                </td>
+                <td><strong>Lot</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-17" type="number" min="0" step="any" value="120000" oninput="updateRate(17, this.value)" onchange="updateRate(17, this.value)">
+                        <small>/ Lot</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-17">₹1,20,000</td>
+            </tr>
+        
+            <tr id="estimate-row-18" data-search="painting surface protection and final appearance.">
+                <td>19</td>
+                <td>
+                    🎨
+                    <strong>Painting</strong>
+                </td>
+                <td>Surface protection and final appearance.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(18, -100)">−</button>
+
+                        <input id="item-qty-18" type="number" min="0" step="any" value="5000" oninput="updateQuantity(18, this.value)" onchange="updateQuantity(18, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(18, 100)">+</button>
+                    </div>
+                </td>
+                <td><strong>Sq.Ft</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-18" type="number" min="0" step="any" value="30" oninput="updateRate(18, this.value)" onchange="updateRate(18, this.value)">
+                        <small>/ Sq.Ft</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-18">₹1,50,000</td>
+            </tr>
+        
+            <tr id="estimate-row-19" data-search="kitchen cabinets, countertop and kitchen fittings.">
+                <td>20</td>
+                <td>
+                    🍳
+                    <strong>Kitchen</strong>
+                </td>
+                <td>Cabinets, countertop and kitchen fittings.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(19, -1)">−</button>
+
+                        <input id="item-qty-19" type="number" min="0" step="any" value="1" oninput="updateQuantity(19, this.value)" onchange="updateQuantity(19, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(19, 1)">+</button>
+                    </div>
+                </td>
+                <td><strong>Lot</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-19" type="number" min="0" step="any" value="180000" oninput="updateRate(19, this.value)" onchange="updateRate(19, this.value)">
+                        <small>/ Lot</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-19">₹1,80,000</td>
+            </tr>
+        
+            <tr id="estimate-row-20" data-search="general labour masonry, material handling and general work.">
+                <td>21</td>
+                <td>
+                    👷
+                    <strong>General Labour</strong>
+                </td>
+                <td>Masonry, material handling and general work.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(20, -10)">−</button>
+
+                        <input id="item-qty-20" type="number" min="0" step="any" value="450" oninput="updateQuantity(20, this.value)" onchange="updateQuantity(20, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(20, 10)">+</button>
+                    </div>
+                </td>
+                <td><strong>Worker-Day</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-20" type="number" min="0" step="any" value="850" oninput="updateRate(20, this.value)" onchange="updateRate(20, this.value)">
+                        <small>/ Worker-Day</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-20">₹3,82,500</td>
+            </tr>
+        
+            <tr id="estimate-row-21" data-search="miscellaneous tools, transport, wastage and minor expenses.">
+                <td>22</td>
+                <td>
+                    📦
+                    <strong>Miscellaneous</strong>
+                </td>
+                <td>Tools, transport, wastage and minor expenses.</td>
+                <td>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" title="Decrease quantity" onclick="stepQuantity(21, -1)">−</button>
+
+                        <input id="item-qty-21" type="number" min="0" step="any" value="1" oninput="updateQuantity(21, this.value)" onchange="updateQuantity(21, this.value)">
+
+                        <button type="button" class="qty-btn" title="Increase quantity" onclick="stepQuantity(21, 1)">+</button>
+                    </div>
+                </td>
+                <td><strong>Lot</strong></td>
+                <td>
+                    <div class="rate-input-wrap">
+                        <input id="item-rate-21" type="number" min="0" step="any" value="100000" oninput="updateRate(21, this.value)" onchange="updateRate(21, this.value)">
+                        <small>/ Lot</small>
+                    </div>
+                </td>
+                <td class="amount" id="item-amount-21">₹1,00,000</td>
+            </tr>
+        </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="total-bar">
+
+                <div>
+                    <span>TOTAL PROJECT ESTIMATE</span>
+                    <strong id="estimateTotal">₹36,37,050</strong>
+                </div>
+
+                <div>
+                    <span>APPROX. COST / SQ.FT</span>
+                    <strong id="estimatePerSqft">₹68</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MATERIALS ================= -->
+
+    <section id="materials" class="page">
+
+        <div class="page-header">
+
+            <span>MATERIAL LIBRARY</span>
+
+            <h1>
+                Know what goes
+                <em>into your home.</em>
+            </h1>
+
+            <p>
+                Understand the purpose, unit and
+                indicative rate of important construction items.
+            </p>
+
+        </div>
+
+
+        <div class="material-grid" id="materialGrid">
+            <article class="material-card material-card-clickable" id="material-card-0" data-search="cement concrete, mortar, plaster and masonry work." onclick="showMaterialModal(0)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(0); }" tabindex="0" role="button" aria-label="View company rates for Cement" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🧱
+                </div>
+                <h2>Cement</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Concrete, mortar, plaster and masonry work.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 UltraTech</span><span class="company-badge">🟢 ACC</span><span class="company-badge">🟡 Ambuja</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹415
+                        / Bag
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-1" data-search="sand concrete, mortar and plaster." onclick="showMaterialModal(1)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(1); }" tabindex="0" role="button" aria-label="View company rates for Sand" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🏖️
+                </div>
+                <h2>Sand</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Concrete, mortar and plaster.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🏭 M-Sand</span><span class="company-badge">🏞️ River</span><span class="company-badge">🟤 P-Sand</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹55
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-2" data-search="aggregate / gitti concrete for rcc and pcc." onclick="showMaterialModal(2)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(2); }" tabindex="0" role="button" aria-label="View company rates for Aggregate / Gitti" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🪨
+                </div>
+                <h2>Aggregate / Gitti</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Concrete for RCC and PCC.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">⚫ 20mm</span><span class="company-badge">⬛ 40mm</span><span class="company-badge">🟫 M-Sand</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹2
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-3" data-search="tmt steel reinforcement inside columns, beams and slabs." onclick="showMaterialModal(3)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(3); }" tabindex="0" role="button" aria-label="View company rates for TMT Steel" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🏗️
+                </div>
+                <h2>TMT Steel</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Reinforcement inside columns, beams and slabs.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 TATA</span><span class="company-badge">🟢 JSW</span><span class="company-badge">🔴 SAIL</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹72
+                        / Kg
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-4" data-search="bricks internal and external walls." onclick="showMaterialModal(4)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(4); }" tabindex="0" role="button" aria-label="View company rates for Bricks" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🧱
+                </div>
+                <h2>Bricks</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Internal and external walls.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🟥 Red</span><span class="company-badge">⬜ Fly</span><span class="company-badge">🔲 AAC</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹9
+                        / Piece
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-5" data-search="binding wire tying steel reinforcement bars." onclick="showMaterialModal(5)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(5); }" tabindex="0" role="button" aria-label="View company rates for Binding Wire" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🪢
+                </div>
+                <h2>Binding Wire</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Tying steel reinforcement bars.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 TATA</span><span class="company-badge">🟢 JSW</span><span class="company-badge">⚫ Local</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹85
+                        / Kg
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-6" data-search="stone dust filling, bedding and selected construction work." onclick="showMaterialModal(6)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(6); }" tabindex="0" role="button" aria-label="View company rates for Stone Dust" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🪨
+                </div>
+                <h2>Stone Dust</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Filling, bedding and selected construction work.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🟤 Quarry</span><span class="company-badge">🟫 M-Sand</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹40
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-7" data-search="excavation foundation trenches and pits." onclick="showMaterialModal(7)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(7); }" tabindex="0" role="button" aria-label="View company rates for Excavation" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🚜
+                </div>
+                <h2>Excavation</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Foundation trenches and pits.
+                </p>
+                
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹45
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-8" data-search="pcc stable base below foundation." onclick="showMaterialModal(8)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(8); }" tabindex="0" role="button" aria-label="View company rates for PCC" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🏗️
+                </div>
+                <h2>PCC</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Stable base below foundation.
+                </p>
+                
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹90
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-9" data-search="rcc work slabs, beams, columns and structural elements." onclick="showMaterialModal(9)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(9); }" tabindex="0" role="button" aria-label="View company rates for RCC Work" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🏗️
+                </div>
+                <h2>RCC Work</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Slabs, beams, columns and structural elements.
+                </p>
+                
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹320
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-10" data-search="brick masonry construction of walls and partitions." onclick="showMaterialModal(10)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(10); }" tabindex="0" role="button" aria-label="View company rates for Brick Masonry" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🧱
+                </div>
+                <h2>Brick Masonry</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Construction of walls and partitions.
+                </p>
+                
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹95
+                        / CFT
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-11" data-search="plaster smooth protective surface for walls and ceilings." onclick="showMaterialModal(11)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(11); }" tabindex="0" role="button" aria-label="View company rates for Plaster" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🪵
+                </div>
+                <h2>Plaster</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Smooth protective surface for walls and ceilings.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">⬜ Birla</span><span class="company-badge">🟡 JK</span><span class="company-badge">🔴 Asian</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹28
+                        / Sq.Ft
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-12" data-search="waterproofing protects roofs, bathrooms and wet areas." onclick="showMaterialModal(12)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(12); }" tabindex="0" role="button" aria-label="View company rates for Waterproofing" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    💧
+                </div>
+                <h2>Waterproofing</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Protects roofs, bathrooms and wet areas.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Dr.</span><span class="company-badge">🟢 Fosroc</span><span class="company-badge">🔴 Sika</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹45
+                        / Sq.Ft
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-13" data-search="flooring finished walking surface." onclick="showMaterialModal(13)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(13); }" tabindex="0" role="button" aria-label="View company rates for Flooring" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🪨
+                </div>
+                <h2>Flooring</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Finished walking surface.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Kajaria</span><span class="company-badge">🟢 Somany</span><span class="company-badge">🟡 Asian</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹90
+                        / Sq.Ft
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-14" data-search="doors &amp; windows access, ventilation, daylight and security." onclick="showMaterialModal(14)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(14); }" tabindex="0" role="button" aria-label="View company rates for Doors &amp; Windows" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🚪
+                </div>
+                <h2>Doors &amp; Windows</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Access, ventilation, daylight and security.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Fenesta</span><span class="company-badge">🟢 Aluplast</span><span class="company-badge">🔴 Godrej</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹2,20,000
+                        / Lot
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-15" data-search="electrical wiring, switches, sockets and lighting." onclick="showMaterialModal(15)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(15); }" tabindex="0" role="button" aria-label="View company rates for Electrical" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    ⚡
+                </div>
+                <h2>Electrical</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Wiring, switches, sockets and lighting.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Havells</span><span class="company-badge">🟢 Finolex</span><span class="company-badge">🟡 Polycab</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹110
+                        / Sq.Ft
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-16" data-search="plumbing fresh water and wastewater systems." onclick="showMaterialModal(16)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(16); }" tabindex="0" role="button" aria-label="View company rates for Plumbing" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🚰
+                </div>
+                <h2>Plumbing</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Fresh water and wastewater systems.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Astral</span><span class="company-badge">🟢 Supreme</span><span class="company-badge">🟡 Prince</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹90
+                        / Sq.Ft
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-17" data-search="sanitary fittings wc, basin, shower and bathroom fittings." onclick="showMaterialModal(17)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(17); }" tabindex="0" role="button" aria-label="View company rates for Sanitary Fittings" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🚿
+                </div>
+                <h2>Sanitary Fittings</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    WC, basin, shower and bathroom fittings.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Jaquar</span><span class="company-badge">🟢 Hindware</span><span class="company-badge">🟡 Cera</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹1,20,000
+                        / Lot
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-18" data-search="painting surface protection and final appearance." onclick="showMaterialModal(18)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(18); }" tabindex="0" role="button" aria-label="View company rates for Painting" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🎨
+                </div>
+                <h2>Painting</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Surface protection and final appearance.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Asian</span><span class="company-badge">🟢 Berger</span><span class="company-badge">🟡 Nerolac</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹30
+                        / Sq.Ft
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-19" data-search="kitchen cabinets, countertop and kitchen fittings." onclick="showMaterialModal(19)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(19); }" tabindex="0" role="button" aria-label="View company rates for Kitchen" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    🍳
+                </div>
+                <h2>Kitchen</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Cabinets, countertop and kitchen fittings.
+                </p>
+                <div class="company-badges-row"><span class="company-badge">🔵 Hettich</span><span class="company-badge">🟢 Sleek</span><span class="company-badge">🟡 Livspace</span><span class="more-brands-hint">+ more brands</span></div>
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹1,80,000
+                        / Lot
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-20" data-search="general labour masonry, material handling and general work." onclick="showMaterialModal(20)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(20); }" tabindex="0" role="button" aria-label="View company rates for General Labour" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    👷
+                </div>
+                <h2>General Labour</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Masonry, material handling and general work.
+                </p>
+                
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹850
+                        / Worker-Day
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        
+            <article class="material-card material-card-clickable" id="material-card-21" data-search="miscellaneous tools, transport, wastage and minor expenses." onclick="showMaterialModal(21)" onkeydown="if (event.key === &#39;Enter&#39; || event.key === &#39; &#39;) { event.preventDefault(); showMaterialModal(21); }" tabindex="0" role="button" aria-label="View company rates for Miscellaneous" title="Click to see brand-wise rates">
+                <div class="material-icon">
+                    📦
+                </div>
+                <h2>Miscellaneous</h2>
+                <p>
+                    <strong>Used for:</strong>
+                    Tools, transport, wastage and minor expenses.
+                </p>
+                
+                <div class="material-rate">
+                    Approx. Rate
+                    <strong>
+                        ₹1,00,000
+                        / Lot
+                    </strong>
+                </div>
+                <div class="card-click-hint">👆 Tap to see all brand rates</div>
+            </article>
+        </div>
+
+    </section>
+
+
+    <!-- ================= MEASUREMENTS ================= -->
+
+    <section id="measurements" class="page">
+
+        <div class="page-header">
+
+            <span>MEASUREMENT TOOLS</span>
+
+            <h1>
+                Measure before
+                <em>you buy.</em>
+            </h1>
+
+            <p>
+                Simple calculators for common construction measurements.
+            </p>
+
+        </div>
+
+
+        <div class="calculator-grid">
+
+
+            <div class="calculator">
+
+                <div class="calc-img-wrapper">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/floor_calc.jpg" alt="Floor Area" class="calc-img" loading="lazy">
+                    <span class="calc-badge">01 · FLOORING</span>
+                </div>
+
+                <div class="calc-body">
+                    <h2>Floor Area</h2>
+
+                    <p>
+                        Useful for flooring, tiles and built-up area calculations.
+                    </p>
+
+                    <input id="floorLength" placeholder="Length (ft)" type="number">
+
+                    <input id="floorWidth" placeholder="Width (ft)" type="number">
+
+                    <button onclick="calculateFloor()">
+                        Calculate
+                    </button>
+
+                    <div id="floorResult" class="result">
+                        0 sq.ft
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="calculator">
+
+                <div class="calc-img-wrapper">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/wall_calc.jpg" alt="Wall Area" class="calc-img" loading="lazy">
+                    <span class="calc-badge">02 · PLASTER &amp; WALLS</span>
+                </div>
+
+                <div class="calc-body">
+                    <h2>Wall Area</h2>
+
+                    <p>
+                        Useful for plaster, paint and wall calculations.
+                    </p>
+
+                    <input id="wallLength" placeholder="Length (ft)" type="number">
+
+                    <input id="wallHeight" placeholder="Height (ft)" type="number">
+
+                    <input id="wallOpening" placeholder="Doors/windows area" type="number" value="0">
+
+                    <button onclick="calculateWall()">
+                        Calculate
+                    </button>
+
+                    <div id="wallResult" class="result">
+                        0 sq.ft
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="calculator">
+
+                <div class="calc-img-wrapper">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/concrete_calc.jpg" alt="Concrete Volume" class="calc-img" loading="lazy">
+                    <span class="calc-badge">03 · RCC &amp; CONCRETE</span>
+                </div>
+
+                <div class="calc-body">
+                    <h2>Concrete Volume</h2>
+
+                    <p>
+                        Calculate approximate rectangular concrete volume.
+                    </p>
+
+                    <input id="concreteLength" placeholder="Length (ft)" type="number">
+
+                    <input id="concreteWidth" placeholder="Width (ft)" type="number">
+
+                    <input id="concreteDepth" placeholder="Depth (ft)" type="number">
+
+                    <button onclick="calculateConcrete()">
+                        Calculate
+                    </button>
+
+                    <div id="concreteResult" class="result">
+                        0 cubic ft
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="calculator">
+
+                <div class="calc-img-wrapper">
+                    <img src="./GharSetu _ Smart Home Construction Planner_files/cost_calc.jpg" alt="Area Cost" class="calc-img" loading="lazy">
+                    <span class="calc-badge">04 · BUDGET &amp; COST</span>
+                </div>
+
+                <div class="calc-body">
+                    <h2>Area Cost</h2>
+
+                    <p>
+                        Estimate the overall cost for any specific area.
+                    </p>
+
+                    <input id="costArea" placeholder="Area (sq.ft)" type="number">
+
+                    <input id="costRate" placeholder="Rate / sq.ft" type="number">
+
+                    <button onclick="calculateAreaCost()">
+                        Calculate
+                    </button>
+
+                    <div id="areaCostResult" class="result">
+                        ₹0
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONSTRUCTION ================= -->
+
+    <section id="construction" class="page">
+
+        <div class="page-header">
+
+            <span>CONSTRUCTION ROADMAP</span>
+
+            <h1>
+                From plot
+                <em>to home.</em>
+            </h1>
+
+            <p>
+                A general construction sequence. Actual execution
+                should follow approved architectural and structural plans.
+            </p>
+
+        </div>
+
+
+        <div class="construction-grid">
+            <div class="roadmap-column">
+                <div class="roadmap" id="roadmap">
+            <div class="stage stage-clickable" id="stage-card-0" data-search="planning &amp; design finalize requirements, floor plan, architectural drawings, structural design and preliminary budget." onclick="showConstructionPreview(&#39;Planning &amp; Design&#39;, &#39;Finalize requirements, floor plan, architectural drawings, structural design and preliminary budget.&#39;, &#39;Stage 01&#39;, &#39;images/gallery/house_1.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 01</span>
+                <h2>Planning &amp; Design</h2>
+                <p>Finalize requirements, floor plan, architectural drawings, structural design and preliminary budget.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-1" data-search="site investigation check site levels, soil conditions, access, drainage and basic site requirements." onclick="showConstructionPreview(&#39;Site Investigation&#39;, &#39;Check site levels, soil conditions, access, drainage and basic site requirements.&#39;, &#39;Stage 02&#39;, &#39;images/gallery/house_2.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 02</span>
+                <h2>Site Investigation</h2>
+                <p>Check site levels, soil conditions, access, drainage and basic site requirements.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-2" data-search="site preparation clear the plot, establish levels and prepare the construction area." onclick="showConstructionPreview(&#39;Site Preparation&#39;, &#39;Clear the plot, establish levels and prepare the construction area.&#39;, &#39;Stage 03&#39;, &#39;images/gallery/house_3.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 03</span>
+                <h2>Site Preparation</h2>
+                <p>Clear the plot, establish levels and prepare the construction area.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-3" data-search="foundation excavation, pcc, footing reinforcement, concrete and foundation-related work." onclick="showConstructionPreview(&#39;Foundation&#39;, &#39;Excavation, PCC, footing reinforcement, concrete and foundation-related work.&#39;, &#39;Stage 04&#39;, &#39;images/gallery/house_4.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 04</span>
+                <h2>Foundation</h2>
+                <p>Excavation, PCC, footing reinforcement, concrete and foundation-related work.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-4" data-search="plinth complete plinth-related masonry, filling, damp protection and floor preparation." onclick="showConstructionPreview(&#39;Plinth&#39;, &#39;Complete plinth-related masonry, filling, damp protection and floor preparation.&#39;, &#39;Stage 05&#39;, &#39;images/gallery/house_5.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 05</span>
+                <h2>Plinth</h2>
+                <p>Complete plinth-related masonry, filling, damp protection and floor preparation.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-5" data-search="columns &amp; beams construct the structural frame according to approved structural drawings." onclick="showConstructionPreview(&#39;Columns &amp; Beams&#39;, &#39;Construct the structural frame according to approved structural drawings.&#39;, &#39;Stage 06&#39;, &#39;images/gallery/house_6.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 06</span>
+                <h2>Columns &amp; Beams</h2>
+                <p>Construct the structural frame according to approved structural drawings.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-6" data-search="brick masonry construct external walls, internal walls and partitions." onclick="showConstructionPreview(&#39;Brick Masonry&#39;, &#39;Construct external walls, internal walls and partitions.&#39;, &#39;Stage 07&#39;, &#39;images/gallery/house_7.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 07</span>
+                <h2>Brick Masonry</h2>
+                <p>Construct external walls, internal walls and partitions.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-7" data-search="slab / roof complete shuttering, reinforcement, embedded services and concrete work." onclick="showConstructionPreview(&#39;Slab / Roof&#39;, &#39;Complete shuttering, reinforcement, embedded services and concrete work.&#39;, &#39;Stage 08&#39;, &#39;images/gallery/house_8.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 08</span>
+                <h2>Slab / Roof</h2>
+                <p>Complete shuttering, reinforcement, embedded services and concrete work.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-8" data-search="electrical &amp; plumbing install conduits, wiring routes, water supply and drainage systems." onclick="showConstructionPreview(&#39;Electrical &amp; Plumbing&#39;, &#39;Install conduits, wiring routes, water supply and drainage systems.&#39;, &#39;Stage 09&#39;, &#39;images/gallery/house_9.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 09</span>
+                <h2>Electrical &amp; Plumbing</h2>
+                <p>Install conduits, wiring routes, water supply and drainage systems.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-9" data-search="plaster &amp; waterproofing finish wall surfaces and waterproof bathrooms, roofs and wet areas." onclick="showConstructionPreview(&#39;Plaster &amp; Waterproofing&#39;, &#39;Finish wall surfaces and waterproof bathrooms, roofs and wet areas.&#39;, &#39;Stage 10&#39;, &#39;images/gallery/house_10.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 10</span>
+                <h2>Plaster &amp; Waterproofing</h2>
+                <p>Finish wall surfaces and waterproof bathrooms, roofs and wet areas.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-10" data-search="flooring &amp; openings install flooring, tiles, doors, windows and hardware." onclick="showConstructionPreview(&#39;Flooring &amp; Openings&#39;, &#39;Install flooring, tiles, doors, windows and hardware.&#39;, &#39;Stage 11&#39;, &#39;images/gallery/house_1.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 11</span>
+                <h2>Flooring &amp; Openings</h2>
+                <p>Install flooring, tiles, doors, windows and hardware.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-11" data-search="painting &amp; finishing complete putty, primer, paint, fixtures and final finishing." onclick="showConstructionPreview(&#39;Painting &amp; Finishing&#39;, &#39;Complete putty, primer, paint, fixtures and final finishing.&#39;, &#39;Stage 12&#39;, &#39;images/gallery/house_2.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 12</span>
+                <h2>Painting &amp; Finishing</h2>
+                <p>Complete putty, primer, paint, fixtures and final finishing.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-12" data-search="testing &amp; inspection check electrical, plumbing, drainage, doors, windows and visible defects." onclick="showConstructionPreview(&#39;Testing &amp; Inspection&#39;, &#39;Check electrical, plumbing, drainage, doors, windows and visible defects.&#39;, &#39;Stage 13&#39;, &#39;images/gallery/house_3.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 13</span>
+                <h2>Testing &amp; Inspection</h2>
+                <p>Check electrical, plumbing, drainage, doors, windows and visible defects.</p>
+            </div>
+        
+            <div class="stage stage-clickable" id="stage-card-13" data-search="final handover complete snag list, cleaning, documentation and final handover." onclick="showConstructionPreview(&#39;Final Handover&#39;, &#39;Complete snag list, cleaning, documentation and final handover.&#39;, &#39;Stage 14&#39;, &#39;images/gallery/house_4.jpg&#39;)" tabindex="0" role="button">
+                <span class="stage-number">STAGE 14</span>
+                <h2>Final Handover</h2>
+                <p>Complete snag list, cleaning, documentation and final handover.</p>
+            </div>
+        </div>
+            </div>
+            <div class="twenty-day-column">
+                <div class="twenty-day-heading">
+                    <span class="plan-title"><span aria-hidden="true">👷</span> 20-DAY HOME PLAN <span aria-hidden="true">👷</span></span>
+                    <h2>Build schedule &amp; material use</h2>
+                    <p>Tap any day to see its work, material quantity and photo.</p>
+                </div>
+                <div class="day-plan" id="dayPlan">
+        <button class="day-card" title="Planning: Freeze drawings, grid lines and levels" style="--bar-width: 5%" onclick="showConstructionPreview(&#39;Planning&#39;, &#39;Freeze drawings, grid lines and levels&#39;, &#39;Day 01&#39;, &#39;images/gallery/house_1.jpg&#39;, &#39;Cement 2 bags · Marking powder 5 Kg&#39;)" aria-label="View Planning for day 01">
+            <span class="day-label">DAY 01</span>
+            <span class="day-card-content"><strong>Planning</strong><small>Freeze drawings, grid lines and levels</small><em>Cement 2 bags · Marking powder 5 Kg</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Site setup: Barricading, access and material storage" style="--bar-width: 10%" onclick="showConstructionPreview(&#39;Site setup&#39;, &#39;Barricading, access and material storage&#39;, &#39;Day 02&#39;, &#39;images/gallery/house_2.jpg&#39;, &#39;Sand 10 CFT · Water 500 L&#39;)" aria-label="View Site setup for day 02">
+            <span class="day-label">DAY 02</span>
+            <span class="day-card-content"><strong>Site setup</strong><small>Barricading, access and material storage</small><em>Sand 10 CFT · Water 500 L</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Excavation: Excavate foundation trenches to design depth" style="--bar-width: 15%" onclick="showConstructionPreview(&#39;Excavation&#39;, &#39;Excavate foundation trenches to design depth&#39;, &#39;Day 03&#39;, &#39;images/gallery/house_3.jpg&#39;, &#39;Stone dust 20 CFT · Sand 10 CFT&#39;)" aria-label="View Excavation for day 03">
+            <span class="day-label">DAY 03</span>
+            <span class="day-card-content"><strong>Excavation</strong><small>Excavate foundation trenches to design depth</small><em>Stone dust 20 CFT · Sand 10 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="PCC: Lay lean concrete below footings" style="--bar-width: 20%" onclick="showConstructionPreview(&#39;PCC&#39;, &#39;Lay lean concrete below footings&#39;, &#39;Day 04&#39;, &#39;images/gallery/house_4.jpg&#39;, &#39;Cement 12 bags · Aggregate 40 CFT · Sand 20 CFT&#39;)" aria-label="View PCC for day 04">
+            <span class="day-label">DAY 04</span>
+            <span class="day-card-content"><strong>PCC</strong><small>Lay lean concrete below footings</small><em>Cement 12 bags · Aggregate 40 CFT · Sand 20 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Footing steel: Fix reinforcement with cover blocks" style="--bar-width: 25%" onclick="showConstructionPreview(&#39;Footing steel&#39;, &#39;Fix reinforcement with cover blocks&#39;, &#39;Day 05&#39;, &#39;images/gallery/house_5.jpg&#39;, &#39;Steel 140 Kg · Binding wire 4 Kg&#39;)" aria-label="View Footing steel for day 05">
+            <span class="day-label">DAY 05</span>
+            <span class="day-card-content"><strong>Footing steel</strong><small>Fix reinforcement with cover blocks</small><em>Steel 140 Kg · Binding wire 4 Kg</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Footing concrete: Pour, compact and finish isolated footings" style="--bar-width: 30%" onclick="showConstructionPreview(&#39;Footing concrete&#39;, &#39;Pour, compact and finish isolated footings&#39;, &#39;Day 06&#39;, &#39;images/gallery/house_6.jpg&#39;, &#39;Cement 35 bags · Aggregate 110 CFT&#39;)" aria-label="View Footing concrete for day 06">
+            <span class="day-label">DAY 06</span>
+            <span class="day-card-content"><strong>Footing concrete</strong><small>Pour, compact and finish isolated footings</small><em>Cement 35 bags · Aggregate 110 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Plinth beam steel: Fix plinth beam reinforcement and shuttering" style="--bar-width: 35%" onclick="showConstructionPreview(&#39;Plinth beam steel&#39;, &#39;Fix plinth beam reinforcement and shuttering&#39;, &#39;Day 07&#39;, &#39;images/gallery/house_7.jpg&#39;, &#39;Steel 120 Kg · Binding wire 3 Kg&#39;)" aria-label="View Plinth beam steel for day 07">
+            <span class="day-label">DAY 07</span>
+            <span class="day-card-content"><strong>Plinth beam steel</strong><small>Fix plinth beam reinforcement and shuttering</small><em>Steel 120 Kg · Binding wire 3 Kg</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Plinth beam: Concrete plinth beam and damp-proof course" style="--bar-width: 40%" onclick="showConstructionPreview(&#39;Plinth beam&#39;, &#39;Concrete plinth beam and damp-proof course&#39;, &#39;Day 08&#39;, &#39;images/gallery/house_8.jpg&#39;, &#39;Cement 18 bags · Aggregate 55 CFT · Bricks 500&#39;)" aria-label="View Plinth beam for day 08">
+            <span class="day-label">DAY 08</span>
+            <span class="day-card-content"><strong>Plinth beam</strong><small>Concrete plinth beam and damp-proof course</small><em>Cement 18 bags · Aggregate 55 CFT · Bricks 500</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Filling: Backfill in controlled layers and compact" style="--bar-width: 45%" onclick="showConstructionPreview(&#39;Filling&#39;, &#39;Backfill in controlled layers and compact&#39;, &#39;Day 09&#39;, &#39;images/gallery/house_9.jpg&#39;, &#39;Stone dust 100 CFT&#39;)" aria-label="View Filling for day 09">
+            <span class="day-label">DAY 09</span>
+            <span class="day-card-content"><strong>Filling</strong><small>Backfill in controlled layers and compact</small><em>Stone dust 100 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Floor base: Prepare soling and ground floor base" style="--bar-width: 50%" onclick="showConstructionPreview(&#39;Floor base&#39;, &#39;Prepare soling and ground floor base&#39;, &#39;Day 10&#39;, &#39;images/gallery/house_10.jpg&#39;, &#39;Stone dust 80 CFT · Sand 60 CFT&#39;)" aria-label="View Floor base for day 10">
+            <span class="day-label">DAY 10</span>
+            <span class="day-card-content"><strong>Floor base</strong><small>Prepare soling and ground floor base</small><em>Stone dust 80 CFT · Sand 60 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Column steel: Fix starter bars and column reinforcement" style="--bar-width: 55.00000000000001%" onclick="showConstructionPreview(&#39;Column steel&#39;, &#39;Fix starter bars and column reinforcement&#39;, &#39;Day 11&#39;, &#39;images/gallery/house_5.jpg&#39;, &#39;Steel 190 Kg · Binding wire 5 Kg&#39;)" aria-label="View Column steel for day 11">
+            <span class="day-label">DAY 11</span>
+            <span class="day-card-content"><strong>Column steel</strong><small>Fix starter bars and column reinforcement</small><em>Steel 190 Kg · Binding wire 5 Kg</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Columns: Erect shuttering and cast columns" style="--bar-width: 60%" onclick="showConstructionPreview(&#39;Columns&#39;, &#39;Erect shuttering and cast columns&#39;, &#39;Day 12&#39;, &#39;images/gallery/house_6.jpg&#39;, &#39;Cement 22 bags · Aggregate 70 CFT&#39;)" aria-label="View Columns for day 12">
+            <span class="day-label">DAY 12</span>
+            <span class="day-card-content"><strong>Columns</strong><small>Erect shuttering and cast columns</small><em>Cement 22 bags · Aggregate 70 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Beam steel: Fix beams, lintels and slab supports" style="--bar-width: 65%" onclick="showConstructionPreview(&#39;Beam steel&#39;, &#39;Fix beams, lintels and slab supports&#39;, &#39;Day 13&#39;, &#39;images/gallery/house_7.jpg&#39;, &#39;Steel 260 Kg · Binding wire 7 Kg&#39;)" aria-label="View Beam steel for day 13">
+            <span class="day-label">DAY 13</span>
+            <span class="day-card-content"><strong>Beam steel</strong><small>Fix beams, lintels and slab supports</small><em>Steel 260 Kg · Binding wire 7 Kg</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Roof shuttering: Level slab shuttering and edge forms" style="--bar-width: 70%" onclick="showConstructionPreview(&#39;Roof shuttering&#39;, &#39;Level slab shuttering and edge forms&#39;, &#39;Day 14&#39;, &#39;images/gallery/house_8.jpg&#39;, &#39;Props 80 nos · Plywood 300 Sq.Ft&#39;)" aria-label="View Roof shuttering for day 14">
+            <span class="day-label">DAY 14</span>
+            <span class="day-card-content"><strong>Roof shuttering</strong><small>Level slab shuttering and edge forms</small><em>Props 80 nos · Plywood 300 Sq.Ft</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Roof services: Place sleeves, conduits and slab steel" style="--bar-width: 75%" onclick="showConstructionPreview(&#39;Roof services&#39;, &#39;Place sleeves, conduits and slab steel&#39;, &#39;Day 15&#39;, &#39;images/gallery/house_9.jpg&#39;, &#39;Steel 420 Kg · Conduit 180 m&#39;)" aria-label="View Roof services for day 15">
+            <span class="day-label">DAY 15</span>
+            <span class="day-card-content"><strong>Roof services</strong><small>Place sleeves, conduits and slab steel</small><em>Steel 420 Kg · Conduit 180 m</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Roof concrete: Pour slab, vibrate and start curing" style="--bar-width: 80%" onclick="showConstructionPreview(&#39;Roof concrete&#39;, &#39;Pour slab, vibrate and start curing&#39;, &#39;Day 16&#39;, &#39;images/gallery/house_10.jpg&#39;, &#39;Cement 48 bags · Aggregate 150 CFT · Sand 75 CFT&#39;)" aria-label="View Roof concrete for day 16">
+            <span class="day-label">DAY 16</span>
+            <span class="day-card-content"><strong>Roof concrete</strong><small>Pour slab, vibrate and start curing</small><em>Cement 48 bags · Aggregate 150 CFT · Sand 75 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Masonry: Build external and internal brick walls" style="--bar-width: 85%" onclick="showConstructionPreview(&#39;Masonry&#39;, &#39;Build external and internal brick walls&#39;, &#39;Day 17&#39;, &#39;images/gallery/house_1.jpg&#39;, &#39;Bricks 4,000 · Cement 18 bags · Sand 120 CFT&#39;)" aria-label="View Masonry for day 17">
+            <span class="day-label">DAY 17</span>
+            <span class="day-card-content"><strong>Masonry</strong><small>Build external and internal brick walls</small><em>Bricks 4,000 · Cement 18 bags · Sand 120 CFT</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="MEP rough-in: Install electrical conduits and plumbing lines" style="--bar-width: 90%" onclick="showConstructionPreview(&#39;MEP rough-in&#39;, &#39;Install electrical conduits and plumbing lines&#39;, &#39;Day 18&#39;, &#39;images/gallery/house_2.jpg&#39;, &#39;PVC pipe 120 m · Conduit 180 m&#39;)" aria-label="View MEP rough-in for day 18">
+            <span class="day-label">DAY 18</span>
+            <span class="day-card-content"><strong>MEP rough-in</strong><small>Install electrical conduits and plumbing lines</small><em>PVC pipe 120 m · Conduit 180 m</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Plaster &amp; waterproofing: Plaster surfaces and waterproof wet areas" style="--bar-width: 95%" onclick="showConstructionPreview(&#39;Plaster &amp; waterproofing&#39;, &#39;Plaster surfaces and waterproof wet areas&#39;, &#39;Day 19&#39;, &#39;images/gallery/house_3.jpg&#39;, &#39;Cement 25 bags · Sand 160 CFT · Waterproofing 500 Sq.Ft&#39;)" aria-label="View Plaster &amp; waterproofing for day 19">
+            <span class="day-label">DAY 19</span>
+            <span class="day-card-content"><strong>Plaster &amp; waterproofing</strong><small>Plaster surfaces and waterproof wet areas</small><em>Cement 25 bags · Sand 160 CFT · Waterproofing 500 Sq.Ft</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    
+        <button class="day-card" title="Handover checks: Flooring sample, paint touch-up, testing and snag list" style="--bar-width: 100%" onclick="showConstructionPreview(&#39;Handover checks&#39;, &#39;Flooring sample, paint touch-up, testing and snag list&#39;, &#39;Day 20&#39;, &#39;images/gallery/house_4.jpg&#39;, &#39;Tiles 1,000 Sq.Ft · Putty 20 bags · Paint 40 L&#39;)" aria-label="View Handover checks for day 20">
+            <span class="day-label">DAY 20</span>
+            <span class="day-card-content"><strong>Handover checks</strong><small>Flooring sample, paint touch-up, testing and snag list</small><em>Tiles 1,000 Sq.Ft · Putty 20 bags · Paint 40 L</em></span>
+            <span class="day-graph-track"><span class="day-graph-bar"></span></span>
+        </button>
+    </div>
+                <div class="technical-plan" id="technicalPlan"><div class="technical-plan-head"><span>EXECUTION REGISTER</span><strong>Daily work packages</strong></div>
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Planning&#39;, &#39;Freeze drawings, grid lines and levels&#39;, &#39;DAY 01 · Planning&#39;, &#39;images/gallery/house_1.jpg&#39;, &#39;Cement 2 bags · Marking powder 5 Kg&#39;)">
+                <span class="technical-day">DAY 01</span>
+                <span class="technical-work"><strong>Planning</strong><small>Freeze drawings, grid lines and levels</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 2 bags · Marking powder 5 Kg</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Approved drawings</span>
+                <span class="technical-output"><b>OUTPUT</b>Grid and benchmark ready</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Site setup&#39;, &#39;Barricading, access and material storage&#39;, &#39;DAY 02 · Site setup&#39;, &#39;images/gallery/house_2.jpg&#39;, &#39;Sand 10 CFT · Water 500 L&#39;)">
+                <span class="technical-day">DAY 02</span>
+                <span class="technical-work"><strong>Site setup</strong><small>Barricading, access and material storage</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Sand 10 CFT · Water 500 L</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Day 01</span>
+                <span class="technical-output"><b>OUTPUT</b>Safe work zone ready</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Excavation&#39;, &#39;Excavate foundation trenches to design depth&#39;, &#39;DAY 03 · Excavation&#39;, &#39;images/gallery/house_3.jpg&#39;, &#39;Stone dust 20 CFT · Sand 10 CFT&#39;)">
+                <span class="technical-day">DAY 03</span>
+                <span class="technical-work"><strong>Excavation</strong><small>Excavate foundation trenches to design depth</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Stone dust 20 CFT · Sand 10 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Site setup</span>
+                <span class="technical-output"><b>OUTPUT</b>Formation level achieved</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;PCC&#39;, &#39;Lay lean concrete below footings&#39;, &#39;DAY 04 · PCC&#39;, &#39;images/gallery/house_4.jpg&#39;, &#39;Cement 12 bags · Aggregate 40 CFT · Sand 20 CFT&#39;)">
+                <span class="technical-day">DAY 04</span>
+                <span class="technical-work"><strong>PCC</strong><small>Lay lean concrete below footings</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 12 bags · Aggregate 40 CFT · Sand 20 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Excavation</span>
+                <span class="technical-output"><b>OUTPUT</b>Clean, level PCC bed</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Footing steel&#39;, &#39;Fix reinforcement with cover blocks&#39;, &#39;DAY 05 · Footing steel&#39;, &#39;images/gallery/house_5.jpg&#39;, &#39;Steel 140 Kg · Binding wire 4 Kg&#39;)">
+                <span class="technical-day">DAY 05</span>
+                <span class="technical-work"><strong>Footing steel</strong><small>Fix reinforcement with cover blocks</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Steel 140 Kg · Binding wire 4 Kg</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>PCC cured</span>
+                <span class="technical-output"><b>OUTPUT</b>Steel inspected before pour</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Footing concrete&#39;, &#39;Pour, compact and finish isolated footings&#39;, &#39;DAY 06 · Footing concrete&#39;, &#39;images/gallery/house_6.jpg&#39;, &#39;Cement 35 bags · Aggregate 110 CFT&#39;)">
+                <span class="technical-day">DAY 06</span>
+                <span class="technical-work"><strong>Footing concrete</strong><small>Pour, compact and finish isolated footings</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 35 bags · Aggregate 110 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Footing steel</span>
+                <span class="technical-output"><b>OUTPUT</b>Footings poured and logged</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Plinth beam steel&#39;, &#39;Fix plinth beam reinforcement and shuttering&#39;, &#39;DAY 07 · Plinth beam steel&#39;, &#39;images/gallery/house_7.jpg&#39;, &#39;Steel 120 Kg · Binding wire 3 Kg&#39;)">
+                <span class="technical-day">DAY 07</span>
+                <span class="technical-work"><strong>Plinth beam steel</strong><small>Fix plinth beam reinforcement and shuttering</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Steel 120 Kg · Binding wire 3 Kg</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Footing concrete</span>
+                <span class="technical-output"><b>OUTPUT</b>Beam cage ready</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Plinth beam&#39;, &#39;Concrete plinth beam and damp-proof course&#39;, &#39;DAY 08 · Plinth beam&#39;, &#39;images/gallery/house_8.jpg&#39;, &#39;Cement 18 bags · Aggregate 55 CFT · Bricks 500&#39;)">
+                <span class="technical-day">DAY 08</span>
+                <span class="technical-work"><strong>Plinth beam</strong><small>Concrete plinth beam and damp-proof course</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 18 bags · Aggregate 55 CFT · Bricks 500</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Beam steel</span>
+                <span class="technical-output"><b>OUTPUT</b>Plinth line established</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Filling&#39;, &#39;Backfill in controlled layers and compact&#39;, &#39;DAY 09 · Filling&#39;, &#39;images/gallery/house_9.jpg&#39;, &#39;Stone dust 100 CFT&#39;)">
+                <span class="technical-day">DAY 09</span>
+                <span class="technical-work"><strong>Filling</strong><small>Backfill in controlled layers and compact</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Stone dust 100 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Plinth beam</span>
+                <span class="technical-output"><b>OUTPUT</b>Compacted filling complete</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Floor base&#39;, &#39;Prepare soling and ground floor base&#39;, &#39;DAY 10 · Floor base&#39;, &#39;images/gallery/house_10.jpg&#39;, &#39;Stone dust 80 CFT · Sand 60 CFT&#39;)">
+                <span class="technical-day">DAY 10</span>
+                <span class="technical-work"><strong>Floor base</strong><small>Prepare soling and ground floor base</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Stone dust 80 CFT · Sand 60 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Filling</span>
+                <span class="technical-output"><b>OUTPUT</b>Floor base level checked</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Column steel&#39;, &#39;Fix starter bars and column reinforcement&#39;, &#39;DAY 11 · Column steel&#39;, &#39;images/gallery/house_5.jpg&#39;, &#39;Steel 190 Kg · Binding wire 5 Kg&#39;)">
+                <span class="technical-day">DAY 11</span>
+                <span class="technical-work"><strong>Column steel</strong><small>Fix starter bars and column reinforcement</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Steel 190 Kg · Binding wire 5 Kg</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Plinth level</span>
+                <span class="technical-output"><b>OUTPUT</b>Vertical alignment checked</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Columns&#39;, &#39;Erect shuttering and cast columns&#39;, &#39;DAY 12 · Columns&#39;, &#39;images/gallery/house_6.jpg&#39;, &#39;Cement 22 bags · Aggregate 70 CFT&#39;)">
+                <span class="technical-day">DAY 12</span>
+                <span class="technical-work"><strong>Columns</strong><small>Erect shuttering and cast columns</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 22 bags · Aggregate 70 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Column steel</span>
+                <span class="technical-output"><b>OUTPUT</b>Column pour complete</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Beam steel&#39;, &#39;Fix beams, lintels and slab supports&#39;, &#39;DAY 13 · Beam steel&#39;, &#39;images/gallery/house_7.jpg&#39;, &#39;Steel 260 Kg · Binding wire 7 Kg&#39;)">
+                <span class="technical-day">DAY 13</span>
+                <span class="technical-work"><strong>Beam steel</strong><small>Fix beams, lintels and slab supports</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Steel 260 Kg · Binding wire 7 Kg</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Columns cured</span>
+                <span class="technical-output"><b>OUTPUT</b>Beam reinforcement inspected</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Roof shuttering&#39;, &#39;Level slab shuttering and edge forms&#39;, &#39;DAY 14 · Roof shuttering&#39;, &#39;images/gallery/house_8.jpg&#39;, &#39;Props 80 nos · Plywood 300 Sq.Ft&#39;)">
+                <span class="technical-day">DAY 14</span>
+                <span class="technical-work"><strong>Roof shuttering</strong><small>Level slab shuttering and edge forms</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Props 80 nos · Plywood 300 Sq.Ft</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Beam steel</span>
+                <span class="technical-output"><b>OUTPUT</b>Slab formwork level</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Roof services&#39;, &#39;Place sleeves, conduits and slab steel&#39;, &#39;DAY 15 · Roof services&#39;, &#39;images/gallery/house_9.jpg&#39;, &#39;Steel 420 Kg · Conduit 180 m&#39;)">
+                <span class="technical-day">DAY 15</span>
+                <span class="technical-work"><strong>Roof services</strong><small>Place sleeves, conduits and slab steel</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Steel 420 Kg · Conduit 180 m</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Roof shuttering</span>
+                <span class="technical-output"><b>OUTPUT</b>Embedded services recorded</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Roof concrete&#39;, &#39;Pour slab, vibrate and start curing&#39;, &#39;DAY 16 · Roof concrete&#39;, &#39;images/gallery/house_10.jpg&#39;, &#39;Cement 48 bags · Aggregate 150 CFT · Sand 75 CFT&#39;)">
+                <span class="technical-day">DAY 16</span>
+                <span class="technical-work"><strong>Roof concrete</strong><small>Pour slab, vibrate and start curing</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 48 bags · Aggregate 150 CFT · Sand 75 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Roof inspection</span>
+                <span class="technical-output"><b>OUTPUT</b>Slab pour completed</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Masonry&#39;, &#39;Build external and internal brick walls&#39;, &#39;DAY 17 · Masonry&#39;, &#39;images/gallery/house_1.jpg&#39;, &#39;Bricks 4,000 · Cement 18 bags · Sand 120 CFT&#39;)">
+                <span class="technical-day">DAY 17</span>
+                <span class="technical-work"><strong>Masonry</strong><small>Build external and internal brick walls</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Bricks 4,000 · Cement 18 bags · Sand 120 CFT</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Slab curing</span>
+                <span class="technical-output"><b>OUTPUT</b>Wall alignment checked</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;MEP rough-in&#39;, &#39;Install electrical conduits and plumbing lines&#39;, &#39;DAY 18 · MEP rough-in&#39;, &#39;images/gallery/house_2.jpg&#39;, &#39;PVC pipe 120 m · Conduit 180 m&#39;)">
+                <span class="technical-day">DAY 18</span>
+                <span class="technical-work"><strong>MEP rough-in</strong><small>Install electrical conduits and plumbing lines</small></span>
+                <span class="technical-material"><b>MATERIAL</b>PVC pipe 120 m · Conduit 180 m</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>Masonry openings</span>
+                <span class="technical-output"><b>OUTPUT</b>Pressure and route test ready</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Plaster &amp; waterproofing&#39;, &#39;Plaster surfaces and waterproof wet areas&#39;, &#39;DAY 19 · Plaster &amp; waterproofing&#39;, &#39;images/gallery/house_3.jpg&#39;, &#39;Cement 25 bags · Sand 160 CFT · Waterproofing 500 Sq.Ft&#39;)">
+                <span class="technical-day">DAY 19</span>
+                <span class="technical-work"><strong>Plaster &amp; waterproofing</strong><small>Plaster surfaces and waterproof wet areas</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Cement 25 bags · Sand 160 CFT · Waterproofing 500 Sq.Ft</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>MEP rough-in</span>
+                <span class="technical-output"><b>OUTPUT</b>Wet-area test passed</span>
+            </button>
+        
+            <button class="technical-row" onclick="showConstructionPreview(&#39;Handover checks&#39;, &#39;Flooring sample, paint touch-up, testing and snag list&#39;, &#39;DAY 20 · Handover checks&#39;, &#39;images/gallery/house_4.jpg&#39;, &#39;Tiles 1,000 Sq.Ft · Putty 20 bags · Paint 40 L&#39;)">
+                <span class="technical-day">DAY 20</span>
+                <span class="technical-work"><strong>Handover checks</strong><small>Flooring sample, paint touch-up, testing and snag list</small></span>
+                <span class="technical-material"><b>MATERIAL</b>Tiles 1,000 Sq.Ft · Putty 20 bags · Paint 40 L</span>
+                <span class="technical-dependency"><b>DEPENDENCY</b>All prior inspections</span>
+                <span class="technical-output"><b>OUTPUT</b>Snag list and handover record</span>
+            </button>
+        </div>
+            </div>
+            <aside class="construction-preview" id="constructionPreview">
+                <img id="constructionPreviewImage" src="./GharSetu _ Smart Home Construction Planner_files/house_5.jpg" alt="Construction preview">
+                <div class="preview-content">
+                    <span>SELECTED PLAN</span>
+                    <h3 id="constructionPreviewTitle">20-day home construction</h3>
+                    <p id="constructionPreviewText">Choose a stage or day to view its work details and reference photo.</p>
+                    <div id="constructionPreviewMaterial" class="preview-material">Material details appear here</div>
+                </div>
+            </aside>
+        </div>
+
+    </section>
+
+
+    <!-- ================= CHECKLIST ================= -->
+
+    <section id="checklist" class="page">
+
+        <div class="page-header">
+
+            <span>PROJECT CHECKLIST</span>
+
+            <h1>
+                Don't miss
+                <em>important things.</em>
+            </h1>
+
+            <p>
+                Tick items as your construction progresses.
+            </p>
+
+            <div class="checklist-summary">
+                <span id="checklistSummary">27 total tasks · 0 completed</span>
+                <button id="clearChecklistFilter" onclick="clearSearch()" style="display: none;">Clear search filter</button>
+            </div>
+
+        </div>
+
+
+        <div class="checklist-card" id="checklistContainer">
+            <label class="check-item " id="check-item-0" data-search="house requirements finalized" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(0, this.checked, this)">
+                <span>House requirements finalized</span>
+            </label>
+        
+            <label class="check-item " id="check-item-1" data-search="architectural plan finalized" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(1, this.checked, this)">
+                <span>Architectural plan finalized</span>
+            </label>
+        
+            <label class="check-item " id="check-item-2" data-search="structural drawings checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(2, this.checked, this)">
+                <span>Structural drawings checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-3" data-search="soil/site investigation completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(3, this.checked, this)">
+                <span>Soil/site investigation completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-4" data-search="budget and contingency planned" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(4, this.checked, this)">
+                <span>Budget and contingency planned</span>
+            </label>
+        
+            <label class="check-item " id="check-item-5" data-search="contractor / labour arrangements checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(5, this.checked, this)">
+                <span>Contractor / labour arrangements checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-6" data-search="material suppliers compared" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(6, this.checked, this)">
+                <span>Material suppliers compared</span>
+            </label>
+        
+            <label class="check-item " id="check-item-7" data-search="foundation excavation checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(7, this.checked, this)">
+                <span>Foundation excavation checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-8" data-search="pcc completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(8, this.checked, this)">
+                <span>PCC completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-9" data-search="footing reinforcement inspected" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(9, this.checked, this)">
+                <span>Footing reinforcement inspected</span>
+            </label>
+        
+            <label class="check-item " id="check-item-10" data-search="footing concrete completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(10, this.checked, this)">
+                <span>Footing concrete completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-11" data-search="plinth work checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(11, this.checked, this)">
+                <span>Plinth work checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-12" data-search="column reinforcement checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(12, this.checked, this)">
+                <span>Column reinforcement checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-13" data-search="beam reinforcement checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(13, this.checked, this)">
+                <span>Beam reinforcement checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-14" data-search="slab reinforcement checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(14, this.checked, this)">
+                <span>Slab reinforcement checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-15" data-search="brick wall alignment checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(15, this.checked, this)">
+                <span>Brick wall alignment checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-16" data-search="electrical conduits checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(16, this.checked, this)">
+                <span>Electrical conduits checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-17" data-search="plumbing lines checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(17, this.checked, this)">
+                <span>Plumbing lines checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-18" data-search="waterproofing checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(18, this.checked, this)">
+                <span>Waterproofing checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-19" data-search="plaster quality checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(19, this.checked, this)">
+                <span>Plaster quality checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-20" data-search="flooring level checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(20, this.checked, this)">
+                <span>Flooring level checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-21" data-search="doors and windows checked" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(21, this.checked, this)">
+                <span>Doors and windows checked</span>
+            </label>
+        
+            <label class="check-item " id="check-item-22" data-search="painting completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(22, this.checked, this)">
+                <span>Painting completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-23" data-search="electrical testing completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(23, this.checked, this)">
+                <span>Electrical testing completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-24" data-search="plumbing testing completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(24, this.checked, this)">
+                <span>Plumbing testing completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-25" data-search="final cleaning completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(25, this.checked, this)">
+                <span>Final cleaning completed</span>
+            </label>
+        
+            <label class="check-item " id="check-item-26" data-search="final inspection completed" style="display: flex;">
+                <input type="checkbox" onchange="toggleCheck(26, this.checked, this)">
+                <span>Final inspection completed</span>
+            </label>
+        </div>
+
+    </section>
+
+
+    <!-- ================= REPORTS ================= -->
+
+    <section id="reports" class="page">
+
+        <div class="page-header">
+
+            <span>PROJECT REPORT</span>
+
+            <h1>
+                Your construction
+                <em>summary.</em>
+            </h1>
+
+            <p>
+                Review the current estimate before printing.
+            </p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-head">
+
+                <div>
+                    <span>GHARSETU</span>
+                    <h2>Home Construction Estimate</h2>
+                </div>
+
+                <strong id="reportDate">24/8/2026</strong>
+
+            </div>
+
+
+            <div class="report-summary">
+
+                <div>
+                    <span>BUILT-UP AREA</span>
+                    <strong id="reportArea">53,450 sq.ft</strong>
+                </div>
+
+                <div>
+                    <span>TOTAL ESTIMATE</span>
+                    <strong id="reportTotal">₹36,37,050</strong>
+                </div>
+
+                <div>
+                    <span>COST / SQ.FT</span>
+                    <strong id="reportPerSqft">₹68</strong>
+                </div>
+
+            </div>
+
+
+            <div id="reportItems">
+            <div class="report-item">
+                <span>🧱 Cement</span>
+                <strong>₹95,450</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🏖️ Sand</span>
+                <strong>₹1,37,500</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🪨 Aggregate / Gitti</span>
+                <strong>₹4,600</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🏗️ TMT Steel</span>
+                <strong>₹2,88,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🧱 Bricks</span>
+                <strong>₹1,62,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🪢 Binding Wire</span>
+                <strong>₹5,950</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🪨 Stone Dust</span>
+                <strong>₹20,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🚜 Excavation</span>
+                <strong>₹20,250</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🏗️ PCC</span>
+                <strong>₹10,800</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🏗️ RCC Work</span>
+                <strong>₹4,80,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🧱 Brick Masonry</span>
+                <strong>₹5,70,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🪵 Plaster</span>
+                <strong>₹2,10,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>💧 Waterproofing</span>
+                <strong>₹45,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🪨 Flooring</span>
+                <strong>₹1,35,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🚪 Doors &amp; Windows</span>
+                <strong>₹2,20,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>⚡ Electrical</span>
+                <strong>₹1,65,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🚰 Plumbing</span>
+                <strong>₹1,35,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🚿 Sanitary Fittings</span>
+                <strong>₹1,20,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🎨 Painting</span>
+                <strong>₹1,50,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>🍳 Kitchen</span>
+                <strong>₹1,80,000</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>👷 General Labour</span>
+                <strong>₹3,82,500</strong>
+            </div>
+        
+            <div class="report-item">
+                <span>📦 Miscellaneous</span>
+                <strong>₹1,00,000</strong>
+            </div>
+        </div>
+
+
+            <button class="primary-btn" onclick="window.print()">
+                🖨 Print / Save PDF
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEEDBACK ================= -->
+
+    <section id="feedback" class="page">
+
+        <div class="feedback-grid">
+
+            <div>
+
+                <span>YOUR OPINION MATTERS</span>
+
+                <h1>
+                    Help us build
+                    <em>something better.</em>
+                </h1>
+
+                <p>
+                    Tell us what is useful, what is confusing,
+                    and what you would like to see next.
+                </p>
+
+                <div class="feedback-quote">
+                    “Good construction starts with good information.”
+                </div>
+
+            </div>
+
+
+            <div class="feedback-card">
+
+                <label>
+                    Your Name
+                    <input id="feedbackName" placeholder="Enter your name">
+                </label>
+
+
+                <label>
+                    Rating
+
+                    <div class="stars">
+
+                        <button onclick="setRating(1)">★</button>
+                        <button onclick="setRating(2)">★</button>
+                        <button onclick="setRating(3)">★</button>
+                        <button onclick="setRating(4)">★</button>
+                        <button onclick="setRating(5)">★</button>
+
+                    </div>
+
+                </label>
+
+
+                <label>
+                    What should we improve?
+
+                    <select id="feedbackCategory">
+
+                        <option>Construction Estimate</option>
+                        <option>Material Guide</option>
+                        <option>Measurements</option>
+                        <option>Construction Roadmap</option>
+                        <option>Design</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Feedback
+
+                    <textarea id="feedbackText" placeholder="Write your feedback..."></textarea>
+
+                </label>
+
+
+                <button class="primary-btn" onclick="submitFeedback()">
+                    Send Feedback →
+                </button>
+
+                <p id="feedbackMessage"></p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-brand">
+
+            <h2>⌂ GharSetu</h2>
+
+            <p>
+                A smart home construction planning
+                platform designed to make building
+                more transparent and understandable.
+            </p>
+
+        </div>
+
+
+        <div>
+            <h4>Platform</h4>
+            <a onclick="showPage(&#39;estimate&#39;)">Estimate</a>
+            <a onclick="showPage(&#39;materials&#39;)">Materials</a>
+            <a onclick="showPage(&#39;measurements&#39;)">Measurements</a>
+            <a onclick="showPage(&#39;construction&#39;)">Construction</a>
+        </div>
+
+
+        <div>
+            <h4>Resources</h4>
+            <a onclick="showPage(&#39;checklist&#39;)">Checklist</a>
+            <a onclick="showPage(&#39;reports&#39;)">Reports</a>
+            <a onclick="showPage(&#39;feedback&#39;)">Feedback</a>
+        </div>
+
+
+        <div>
+            <h4>Important</h4>
+            <p>Indicative rates only.</p>
+            <p>Verify local prices.</p>
+            <p>Use professional structural advice.</p>
+        </div>
+
+    </footer>
+
+
+<!-- MATERIAL COMPANY RATE MODAL -->
+<div id="materialModal" class="material-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeMaterialModal(event)" style="display: none;">
+    <div class="material-modal-content" onclick="event.stopPropagation()">
+        <div class="material-modal-header">
+            <div>
+                <span class="modal-eyebrow">COMPANY RATE COMPARISON</span>
+                <h2 id="modalTitle">🧱 Cement</h2>
+            </div>
+            <button class="material-modal-close" onclick="closeMaterialModal()" aria-label="Close rate comparison">✕</button>
+        </div>
+        <div id="modalBody">
+        <div class="modal-overview">
+            <div class="modal-overview-row">
+                <span>📋 Purpose</span>
+                <span>Concrete, mortar, plaster and masonry work.</span>
+            </div>
+            <div class="modal-overview-row">
+                <span>💰 Approx. Rate</span>
+                <span><strong>₹415 / Bag</strong></span>
+            </div>
+            <div class="modal-overview-row">
+                <span>📦 Category</span>
+                <span class="modal-type-badge modal-type-material">MATERIAL</span>
+            </div>
+        </div>
+        
+            <div class="modal-companies-section">
+                <h4>🏢 Trending Brands &amp; Market Rates</h4>
+                <div class="modal-company-list">
+            <div class="modal-company-row">
+                <span class="modal-company-logo">🔵</span>
+                <div class="modal-company-info">
+                    <strong>UltraTech Cement</strong>
+                    <span class="modal-company-tag">#1 Brand India</span>
+                </div>
+                <div class="modal-company-rate">
+                    ₹420 / Bag
+                </div>
+            </div>
+        
+            <div class="modal-company-row">
+                <span class="modal-company-logo">🟢</span>
+                <div class="modal-company-info">
+                    <strong>ACC Cement</strong>
+                    <span class="modal-company-tag">Trusted Since 1936</span>
+                </div>
+                <div class="modal-company-rate">
+                    ₹410 / Bag
+                </div>
+            </div>
+        
+            <div class="modal-company-row">
+                <span class="modal-company-logo">🟡</span>
+                <div class="modal-company-info">
+                    <strong>Ambuja Cement</strong>
+                    <span class="modal-company-tag">Premium Strength</span>
+                </div>
+                <div class="modal-company-rate">
+                    ₹415 / Bag
+                </div>
+            </div>
+        
+            <div class="modal-company-row">
+                <span class="modal-company-logo">🔴</span>
+                <div class="modal-company-info">
+                    <strong>Shree Cement</strong>
+                    <span class="modal-company-tag">Value Pick</span>
+                </div>
+                <div class="modal-company-rate">
+                    ₹400 / Bag
+                </div>
+            </div>
+        
+            <div class="modal-company-row">
+                <span class="modal-company-logo">🟠</span>
+                <div class="modal-company-info">
+                    <strong>Dalmia Cement</strong>
+                    <span class="modal-company-tag">Eco Friendly</span>
+                </div>
+                <div class="modal-company-rate">
+                    ₹405 / Bag
+                </div>
+            </div>
+        </div>
+                <div class="modal-tip">💡 <strong>Pro Tip:</strong> Use OPC 53 for structural RCC and PPC for plastering. Buy in bulk for 5-8% savings.</div>
+            </div>
+        
+    </div>
+    </div>
+</div>
+
+
+<!-- IMAGE LIGHTBOX MODAL -->
+<div id="imageLightbox" class="image-lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img id="lightboxImg" src="http://127.0.0.1:5500/index.html" alt="House Design">
+        <div class="lightbox-meta">
+            <div>
+                <h3 id="lightboxTitle" style="font-size: 18px; margin-bottom: 4px;"></h3>
+                <p id="lightboxSub" style="font-size: 13px; color: var(--muted);"></p>
+            </div>
+            <button class="primary-btn" onclick="closeLightbox()">Close Preview</button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+
+<div id="toast"></div>
+
+
+<script src="./GharSetu _ Smart Home Construction Planner_files/script.js.download"></script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GharSetu | Smart Home Construction Planner</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar" id="sidebar">
+    <div class="brand">
+        <div class="brand-logo">⌂</div>
+        <div>
+            <h2>GharSetu</h2>
+            <span>BUILD WITH CONFIDENCE</span>
+        </div>
+    </div>
+
+    <nav class="navigation">
+        <button class="nav-item active" onclick="showPage('dashboard', this)">
+            <span>⌂</span> Dashboard
+        </button>
+        <button class="nav-item" onclick="showPage('estimate', this)">
+            <span>₹</span> Estimate
+        </button>
+        <button class="nav-item" onclick="showPage('materials', this)">
+            <span>▦</span> Materials
+        </button>
+        <button class="nav-item" onclick="showPage('measurements', this)">
+            <span>⌗</span> Measurements
+        </button>
+        <button class="nav-item" onclick="showPage('construction', this)">
+            <span>⚒</span> Construction
+        </button>
+        <button class="nav-item" onclick="showPage('checklist', this)">
+            <span>✓</span> Checklist
+        </button>
+        <button class="nav-item" onclick="showPage('reports', this)">
+            <span>▤</span> Reports
+        </button>
+        <button class="nav-item" onclick="showPage('feedback', this)">
+            <span>♡</span> Feedback
+        </button>
+    </nav>
+
+    <div class="sidebar-tip">
+        <span>SMART BUILDING</span>
+        <h3>Plan Smart.<br>Build Better.</h3>
+        <p>Keep your construction budget, materials, and timeline organized in one place.</p>
+    </div>
+
+    <div class="sidebar-bottom">
+        <small>GHARSETU v2.0</small>
+        <p>Home Construction Platform</p>
+    </div>
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+<main class="main">
+
+    <!-- HEADER / TOPBAR -->
+    <header class="topbar">
+        <div class="mobile-left">
+            <button class="menu-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">☰</button>
+            <div>
+                <small>HOME CONSTRUCTION</small>
+                <h3 id="pageTitle">Dashboard</h3>
+            </div>
+        </div>
+
+        <div class="top-actions">
+            <div class="search-wrapper">
+                <div class="search">
+                    <span class="search-icon">🔍</span>
+                    <input
+                        type="text"
+                        id="globalSearch"
+                        placeholder="Search materials, tools, stages..."
+                        oninput="globalSearch()"
+                        onfocus="showSearchDropdown()"
+                        onkeydown="handleSearchKey(event)"
+                        autocomplete="off"
+                    >
+                    <button id="clearSearchBtn" class="clear-search-btn" onclick="clearSearch()" title="Clear search" style="display: none;">✕</button>
+                </div>
+                <div id="searchDropdown" class="search-dropdown" style="display: none;"></div>
+            </div>
+
+            <!-- SOUND TOGGLE -->
+            <button id="soundBtn" class="sound-btn" onclick="toggleSound()" title="Toggle Sound Effects">🔊</button>
+
+            <!-- THEME SWITCHER -->
+            <div class="theme-switch">
+                <button id="lightBtn" class="theme-option" onclick="setTheme('light')" title="Light Mode">☀</button>
+                <button id="darkBtn" class="theme-option active" onclick="setTheme('dark')" title="Dark Mode">◐</button>
+            </div>
+
+            <!-- QUICK SHORTCUTS & HELP -->
+            <button class="icon-btn" onclick="openShortcutsModal()" title="Help & Shortcuts">ℹ</button>
+
+            <!-- PROJECT SETTINGS & DATA -->
+            <button class="profile-btn" onclick="openProjectModal()" title="Project Management & Settings">⚙</button>
+        </div>
+    </header>
+
+
+    <!-- ================= 01. DASHBOARD ================= -->
+    <section id="dashboard" class="page active">
+
+        <div class="welcome-grid">
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <span class="tag">YOUR HOME · YOUR PLAN</span>
+                    <h1>
+                        Build your dream home
+                        <span>with complete transparency.</span>
+                    </h1>
+                    <p>
+                        Plan your construction, calculate material costs, track daily progress,
+                        and understand every major stage of building your home.
+                    </p>
+
+                    <div class="welcome-buttons">
+                        <button class="primary-btn" onclick="showPage('estimate')">
+                            Start New Estimate →
+                        </button>
+                        <button class="secondary-btn" onclick="showPage('reports')">
+                            ↓ View Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="house-illustration">
+                    <div class="house">
+                        <div class="roof"></div>
+                        <div class="house-body">
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="door"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT OVERVIEW -->
+            <div class="overview-card">
+                <div class="card-heading">
+                    <h3>Project Overview</h3>
+                    <span class="status">Planning</span>
+                </div>
+
+                <div class="overview-row">
+                    <span>⌂ Built-up Area</span>
+                    <strong id="overviewArea">1,500 sq.ft</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>₹ Estimated Cost</span>
+                    <strong id="overviewCost">₹0</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>◉ Cost / sq.ft</span>
+                    <strong id="overviewSqft">₹0</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>✓ Project Status</span>
+                    <strong class="green">Active Planning</strong>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ===== 2026 TRENDING HOUSE DESIGNS GALLERY BANNER ===== -->
+        <div class="photo-gallery-banner" id="galleryBanner" onclick="togglePhotoGallery()">
+            <div class="gallery-banner-content">
+                <div class="gallery-banner-left">
+                    <span class="gallery-banner-icon">🏠</span>
+                    <div>
+                        <strong>2026 Trending House Designs (12 Photos)</strong>
+                        <span>India's latest modern house inspirations — click to explore all 12 designs!</span>
+                    </div>
+                </div>
+                <div class="gallery-banner-right">
+                    <span class="gallery-banner-preview">
+                        <img src="images/gallery/house_1.jpg" alt="Villa preview" onerror="this.src='https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=120&h=80&fit=crop&q=80'">
+                        <img src="images/gallery/house_2.jpg" alt="Villa preview" onerror="this.src='https://images.unsplash.com/photo-1613977257363-707ba9348227?w=120&h=80&fit=crop&q=80'">
+                        <img src="images/gallery/house_3.jpg" alt="Villa preview" onerror="this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=120&h=80&fit=crop&q=80'">
+                    </span>
+                    <button class="gallery-open-btn" onclick="event.stopPropagation(); togglePhotoGallery();">
+                        <span id="galleryBtnIcon">▼</span> View 12 Designs
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete 12 Photo Gallery Grid (Toggles on click) -->
+        <div class="photo-gallery-section" id="photoGallerySection" style="display: none;">
+            <div class="gallery-section-header">
+                <div>
+                    <span class="gallery-tag">🔥 TRENDING 2026</span>
+                    <h2>2026 Modern House Designs — India (12 Curated Designs)</h2>
+                    <p>Complete collection of 12 modern architectural home designs — click any photo for full view</p>
+                </div>
+                <button class="gallery-close-btn" onclick="togglePhotoGallery()">✕ Close</button>
+            </div>
+
+            <div class="photo-gallery-grid">
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(0)">
+                    <img src="images/gallery/house_1.jpg" onerror="this.src='https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&h=400&fit=crop&q=80'" alt="Minimalist White Villa" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏠 01. Minimalist White Villa</span>
+                        <span class="photo-area">4BHK • 3,200 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(1)">
+                    <img src="images/gallery/house_2.jpg" onerror="this.src='https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&h=400&fit=crop&q=80'" alt="Luxury Pool Villa" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">✨ 02. Luxury Pool Villa</span>
+                        <span class="photo-area">5BHK • 4,500 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(2)">
+                    <img src="images/gallery/house_3.jpg" onerror="this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=400&fit=crop&q=80'" alt="Smart Contemporary Home" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🤖 03. Smart Contemporary Home</span>
+                        <span class="photo-area">3BHK • 2,400 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(3)">
+                    <img src="images/gallery/house_4.jpg" onerror="this.src='https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=600&h=400&fit=crop&q=80'" alt="Glass & Steel Design" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🪟 04. Glass & Steel Design</span>
+                        <span class="photo-area">4BHK • 3,600 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(4)">
+                    <img src="images/gallery/house_5.jpg" onerror="this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&h=400&fit=crop&q=80'" alt="Premium Bungalow" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏠 05. Premium Bungalow</span>
+                        <span class="photo-area">4BHK • 3,000 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(5)">
+                    <img src="images/gallery/house_6.jpg" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop&q=80'" alt="Eco Green Smart Home" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🌿 06. Eco Green Smart Home</span>
+                        <span class="photo-area">3BHK • 2,100 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(6)">
+                    <img src="images/gallery/house_7.jpg" onerror="this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop&q=80'" alt="Ultra Modern Duplex" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏔 07. Ultra Modern Duplex</span>
+                        <span class="photo-area">5BHK • 4,800 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(7)">
+                    <img src="images/gallery/house_8.jpg" onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop&q=80'" alt="White Luxury Mansion" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">💎 08. White Luxury Mansion</span>
+                        <span class="photo-area">6BHK • 6,000 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(8)">
+                    <img src="images/gallery/house_9.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80'" alt="Scandinavian Style Home" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">❄ 09. Scandinavian Style Home</span>
+                        <span class="photo-area">3BHK • 2,200 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(9)">
+                    <img src="images/gallery/house_10.jpg" onerror="this.src='https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&h=400&fit=crop&q=80'" alt="Tropical Resort Villa" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🌴 10. Tropical Resort Villa</span>
+                        <span class="photo-area">4BHK • 3,500 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(10)">
+                    <img src="images/gallery/house_11.jpg" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop&q=80'" alt="Warm Courtyard House" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏠 11. Warm Courtyard House</span>
+                        <span class="photo-area">3BHK • 2,700 sq.ft • 2026</span>
+                    </div>
+                </div>
+                <div class="gallery-photo-card" onclick="openGalleryLightbox(11)">
+                    <img src="images/gallery/house_12.jpg" onerror="this.src='https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=400&fit=crop&q=80'" alt="Modern Family Residence" loading="lazy">
+                    <div class="gallery-photo-overlay">
+                        <span class="photo-label">🏡 12. Modern Family Residence</span>
+                        <span class="photo-area">4BHK • 3,800 sq.ft • 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">₹</div>
+                <span>Total Estimate</span>
+                <h2 id="totalStat">₹0</h2>
+                <small>Current project estimate</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">▦</div>
+                <span>Material Cost</span>
+                <h2 id="materialStat">₹0</h2>
+                <small>Materials &amp; supplies</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">♙</div>
+                <span>Labour Cost</span>
+                <h2 id="labourStat">₹0</h2>
+                <small>Work &amp; labour</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">◇</div>
+                <span>Other Cost</span>
+                <h2 id="otherStat">₹0</h2>
+                <small>Finishing &amp; services</small>
+            </div>
+        </div>
+
+        <!-- PROJECT DIMENSIONS -->
+        <div class="panel">
+            <div class="panel-title">
+                <div>
+                    <span>PROJECT SETUP</span>
+                    <h2>Project Dimensions</h2>
+                </div>
+                <small>Change values anytime to recalculate</small>
+            </div>
+
+            <div class="dimension-grid">
+                <label>
+                    Length (ft)
+                    <input id="length" type="number" value="50" min="1" step="any" oninput="updateProject()">
+                </label>
+
+                <label>
+                    Width (ft)
+                    <input id="width" type="number" value="30" min="1" step="any" oninput="updateProject()">
+                </label>
+
+                <label>
+                    Floors
+                    <input id="floors" type="number" value="1" min="1" step="1" oninput="updateProject()">
+                </label>
+
+                <div class="area-box">
+                    <span>BUILT-UP AREA</span>
+                    <strong id="areaDisplay">1,500</strong>
+                    <small>sq.ft</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK TOOLS -->
+        <div class="section-header">
+            <div>
+                <span>QUICK TOOLS</span>
+                <h2>Everything you need</h2>
+            </div>
+        </div>
+
+        <div class="tools-grid">
+            <button onclick="showPage('measurements')">
+                <b>⌗</b>
+                <strong>Measurements</strong>
+                <small>Area &amp; volume calculators</small>
+            </button>
+
+            <button onclick="showPage('materials')">
+                <b>▦</b>
+                <strong>Materials Guide</strong>
+                <small>Know what each material does</small>
+            </button>
+
+            <button onclick="showPage('construction')">
+                <b>⚒</b>
+                <strong>Construction Stages</strong>
+                <small>Foundation to finishing</small>
+            </button>
+
+            <button onclick="showPage('checklist')">
+                <b>✓</b>
+                <strong>Checklist</strong>
+                <small>Don't miss important tasks</small>
+            </button>
+
+            <button onclick="showPage('reports')">
+                <b>▤</b>
+                <strong>Reports</strong>
+                <small>Print your estimate</small>
+            </button>
+
+            <button onclick="showPage('feedback')">
+                <b>♡</b>
+                <strong>Feedback</strong>
+                <small>Help us improve</small>
+            </button>
+        </div>
+
+        <!-- BOTTOM TIPS & ACTIVITY -->
+        <div class="bottom-grid">
+            <div class="panel">
+                <div class="panel-title">
+                    <div>
+                        <span>RECENT ACTIVITY</span>
+                        <h2>Project Activity</h2>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <span>✓</span>
+                    <div>
+                        <strong>Project initialized</strong>
+                        <small>Auto-saved in browser</small>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <span>₹</span>
+                    <div>
+                        <strong>Estimate calculated</strong>
+                        <small>Based on standard rates</small>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <span>⌗</span>
+                    <div>
+                        <strong>Calculators ready</strong>
+                        <small>Floor, wall &amp; concrete tools</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel tips">
+                <span>SMART TIPS</span>
+                <h2>Tips for your construction</h2>
+                <p>✓ Always compare rates from multiple local suppliers.</p>
+                <p>✓ Verify material quality and BIS certification before bulk buying.</p>
+                <p>✓ Keep structural decisions aligned with qualified civil engineers.</p>
+                <p>✓ Maintain a 5-10% contingency budget for unforeseen expenses.</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ================= 02. ESTIMATE ================= -->
+    <section id="estimate" class="page">
+        <div class="page-header">
+            <span>COST PLANNER</span>
+            <h1>
+                Construction
+                <em>Estimate</em>
+            </h1>
+            <p>
+                Edit quantity and rate. The item amount and total project cost update automatically.
+            </p>
+        </div>
+
+        <div class="warning">
+            ⚠️ <strong>Indicative rates:</strong> Rates shown are demo/indicative averages. Actual prices vary by city, brand grade, supplier, and market conditions.
+        </div>
+
+        <div class="estimate-panel">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ITEM</th>
+                            <th>USED FOR</th>
+                            <th>QUANTITY</th>
+                            <th>UNIT</th>
+                            <th>RATE / UNIT</th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="estimateBody">
+                        <!-- Populated dynamically by script.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="total-bar">
+                <div>
+                    <span>TOTAL PROJECT ESTIMATE</span>
+                    <strong id="estimateTotal">₹0</strong>
+                </div>
+                <div>
+                    <span>APPROX. COST / SQ.FT</span>
+                    <strong id="estimatePerSqft">₹0</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= 03. MATERIALS ================= -->
+    <section id="materials" class="page">
+        <div class="page-header">
+            <span>MATERIAL LIBRARY</span>
+            <h1>
+                Know what goes
+                <em>into your home.</em>
+            </h1>
+            <p>
+                Understand the purpose, market unit, and brand rates for essential construction materials.
+            </p>
+        </div>
+
+        <div id="materialsSearchMsg" class="search-feedback-msg" style="display: none;"></div>
+        <div class="material-grid" id="materialGrid">
+            <!-- Populated dynamically by script.js -->
+        </div>
+    </section>
+
+
+    <!-- ================= 04. MEASUREMENTS ================= -->
+    <section id="measurements" class="page">
+        <div class="page-header">
+            <span>MEASUREMENT TOOLS</span>
+            <h1>
+                Measure before
+                <em>you buy.</em>
+            </h1>
+            <p>
+                Quick and accurate calculators for common construction measurements.
+            </p>
+        </div>
+
+        <div class="calculator-grid">
+
+            <!-- 01 FLOOR -->
+            <div class="calculator">
+                <div class="calc-img-wrapper">
+                    <img src="images/floor_calc.jpg" onerror="this.src='https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&h=300&fit=crop&q=80'" alt="Floor Area" class="calc-img" loading="lazy">
+                    <span class="calc-badge">01 · FLOORING</span>
+                </div>
+                <div class="calc-body">
+                    <h2>Floor Area</h2>
+                    <p>Useful for flooring, tiles, carpeting and built-up area calculations.</p>
+                    <input id="floorLength" placeholder="Length (ft)" type="number" step="any" min="0">
+                    <input id="floorWidth" placeholder="Width (ft)" type="number" step="any" min="0">
+                    <button onclick="calculateFloor()">Calculate</button>
+                    <div id="floorResult" class="result">0 sq.ft</div>
+                </div>
+            </div>
+
+            <!-- 02 WALL -->
+            <div class="calculator">
+                <div class="calc-img-wrapper">
+                    <img src="images/gallery/house_7.jpg" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=300&fit=crop&q=80'" alt="Wall Area" class="calc-img" loading="lazy">
+                    <span class="calc-badge">02 · PLASTER &amp; WALLS</span>
+                </div>
+                <div class="calc-body">
+                    <h2>Wall Area</h2>
+                    <p>Useful for plaster, paint, putty and brickwork deductions.</p>
+                    <input id="wallLength" placeholder="Length (ft)" type="number" step="any" min="0">
+                    <input id="wallHeight" placeholder="Height (ft)" type="number" step="any" min="0">
+                    <input id="wallOpening" placeholder="Openings area to deduct (sq.ft)" type="number" step="any" min="0" value="0">
+                    <button onclick="calculateWall()">Calculate</button>
+                    <div id="wallResult" class="result">0 sq.ft</div>
+                </div>
+            </div>
+
+            <!-- 03 CONCRETE -->
+            <div class="calculator">
+                <div class="calc-img-wrapper">
+                    <img src="images/concrete_calc.jpg" onerror="this.src='https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?w=600&h=300&fit=crop&q=80'" alt="Concrete Volume" class="calc-img" loading="lazy">
+                    <span class="calc-badge">03 · RCC &amp; CONCRETE</span>
+                </div>
+                <div class="calc-body">
+                    <h2>Concrete Volume</h2>
+                    <p>Calculate rectangular concrete volume for slabs, beams and footings.</p>
+                    <input id="concreteLength" placeholder="Length (ft)" type="number" step="any" min="0">
+                    <input id="concreteWidth" placeholder="Width (ft)" type="number" step="any" min="0">
+                    <input id="concreteDepth" placeholder="Depth / Thickness (ft)" type="number" step="any" min="0">
+                    <button onclick="calculateConcrete()">Calculate</button>
+                    <div id="concreteResult" class="result">0 cubic ft</div>
+                </div>
+            </div>
+
+            <!-- 04 AREA COST -->
+            <div class="calculator">
+                <div class="calc-img-wrapper">
+                    <img src="images/cost_calc.jpg" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=300&fit=crop&q=80'" alt="Area Cost" class="calc-img" loading="lazy">
+                    <span class="calc-badge">04 · BUDGET &amp; COST</span>
+                </div>
+                <div class="calc-body">
+                    <h2>Area Cost</h2>
+                    <p>Estimate overall construction budget for any custom room or area.</p>
+                    <input id="costArea" placeholder="Area (sq.ft)" type="number" step="any" min="0">
+                    <input id="costRate" placeholder="Rate / sq.ft (₹)" type="number" step="any" min="0">
+                    <button onclick="calculateAreaCost()">Calculate</button>
+                    <div id="areaCostResult" class="result">₹0</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= 05. CONSTRUCTION ROADMAP ================= -->
+    <section id="construction" class="page">
+        <div class="page-header">
+            <span>CONSTRUCTION ROADMAP</span>
+            <h1>
+                From plot
+                <em>to home.</em>
+            </h1>
+            <p>
+                A standard phase-by-phase building sequence. Click any stage or day to view details, material requirements, and reference photo.
+            </p>
+        </div>
+
+        <div class="construction-grid">
+            <div class="roadmap-column">
+                <div class="roadmap" id="roadmap">
+                    <!-- Populated dynamically by script.js -->
+                </div>
+            </div>
+
+            <div class="twenty-day-column">
+                <div class="twenty-day-heading">
+                    <span class="plan-title"><span aria-hidden="true">👷</span> 20-DAY HOME PLAN <span aria-hidden="true">👷</span></span>
+                    <h2>Build schedule &amp; material use</h2>
+                    <p>Tap any day to see its work, material quantities and inspection photo.</p>
+                </div>
+                <div class="day-plan" id="dayPlan">
+                    <!-- Populated dynamically by script.js -->
+                </div>
+                <div class="technical-plan" id="technicalPlan">
+                    <!-- Populated dynamically by script.js -->
+                </div>
+            </div>
+
+            <aside class="construction-preview" id="constructionPreview">
+                <img id="constructionPreviewImage" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&fit=crop&q=80" alt="Construction preview">
+                <div class="preview-content">
+                    <span>SELECTED PLAN</span>
+                    <h3 id="constructionPreviewTitle">20-day home construction</h3>
+                    <p id="constructionPreviewText">Choose a stage or day from the left to view its work details and reference photo.</p>
+                    <div id="constructionPreviewMaterial" class="preview-material">Material details appear here</div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+
+    <!-- ================= 06. CHECKLIST ================= -->
+    <section id="checklist" class="page">
+        <div class="page-header">
+            <span>PROJECT CHECKLIST</span>
+            <h1>
+                Don't miss
+                <em>important things.</em>
+            </h1>
+            <p>
+                Tick items as your construction progresses. All progress is saved automatically.
+            </p>
+
+            <div class="checklist-summary">
+                <span id="checklistSummary">27 total tasks · 0 completed</span>
+                <button id="clearChecklistFilter" onclick="clearSearch()" style="display: none;">Clear search filter</button>
+            </div>
+        </div>
+
+        <div class="checklist-card" id="checklistContainer">
+            <!-- Populated dynamically by script.js -->
+        </div>
+    </section>
+
+
+    <!-- ================= 07. REPORTS ================= -->
+    <section id="reports" class="page">
+        <div class="page-header">
+            <span>PROJECT REPORT</span>
+            <h1>
+                Your construction
+                <em>summary.</em>
+            </h1>
+            <p>
+                Review the itemized summary before printing or exporting to PDF.
+            </p>
+        </div>
+
+        <div class="report-card">
+            <div class="report-head">
+                <div>
+                    <span>GHARSETU</span>
+                    <h2>Home Construction Estimate</h2>
+                </div>
+                <strong id="reportDate">--/--/----</strong>
+            </div>
+
+            <div class="report-summary">
+                <div>
+                    <span>BUILT-UP AREA</span>
+                    <strong id="reportArea">0 sq.ft</strong>
+                </div>
+                <div>
+                    <span>TOTAL ESTIMATE</span>
+                    <strong id="reportTotal">₹0</strong>
+                </div>
+                <div>
+                    <span>COST / SQ.FT</span>
+                    <strong id="reportPerSqft">₹0</strong>
+                </div>
+            </div>
+
+            <div id="reportItems">
+                <!-- Populated dynamically by script.js -->
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;">
+                <button class="primary-btn" onclick="window.print()">
+                    🖨 Print / Save as PDF
+                </button>
+                <button class="secondary-btn" onclick="exportProjectData()">
+                    💾 Export JSON Backup
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= 08. FEEDBACK ================= -->
+    <section id="feedback" class="page">
+        <div class="feedback-grid">
+            <div>
+                <span>YOUR OPINION MATTERS</span>
+                <h1>
+                    Help us build
+                    <em>something better.</em>
+                </h1>
+                <p>
+                    Tell us what is useful, what needs improvement, and what new features you'd like to see.
+                </p>
+
+                <div class="feedback-quote">
+                    “Good construction starts with transparent information.”
+                </div>
+            </div>
+
+            <div class="feedback-card">
+                <label>
+                    Your Name
+                    <input id="feedbackName" placeholder="Enter your name (optional)">
+                </label>
+
+                <label>
+                    Rating
+                    <div class="stars">
+                        <button type="button" onclick="setRating(1)">★</button>
+                        <button type="button" onclick="setRating(2)">★</button>
+                        <button type="button" onclick="setRating(3)">★</button>
+                        <button type="button" onclick="setRating(4)">★</button>
+                        <button type="button" onclick="setRating(5)">★</button>
+                    </div>
+                </label>
+
+                <label>
+                    What should we improve?
+                    <select id="feedbackCategory">
+                        <option>Construction Estimate</option>
+                        <option>Material Guide &amp; Rates</option>
+                        <option>Measurements &amp; Calculators</option>
+                        <option>Construction Roadmap</option>
+                        <option>Design &amp; Theme</option>
+                        <option>Other Suggestions</option>
+                    </select>
+                </label>
+
+                <label>
+                    Feedback
+                    <textarea id="feedbackText" placeholder="Write your feedback or suggestions here..."></textarea>
+                </label>
+
+                <button class="primary-btn" onclick="submitFeedback()">
+                    Send Feedback →
+                </button>
+
+                <p id="feedbackMessage" style="margin-top: 10px; font-weight: 600;"></p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-brand">
+            <h2>⌂ GharSetu</h2>
+            <p>
+                A smart home construction planning platform designed to make building more transparent, predictable, and understandable.
+            </p>
+        </div>
+
+        <div>
+            <h4>Platform</h4>
+            <a onclick="showPage('estimate')">Estimate</a>
+            <a onclick="showPage('materials')">Materials</a>
+            <a onclick="showPage('measurements')">Measurements</a>
+            <a onclick="showPage('construction')">Construction</a>
+        </div>
+
+        <div>
+            <h4>Resources</h4>
+            <a onclick="showPage('checklist')">Checklist</a>
+            <a onclick="showPage('reports')">Reports</a>
+            <a onclick="showPage('feedback')">Feedback</a>
+        </div>
+
+        <div>
+            <h4>Important</h4>
+            <p>Indicative rates only.</p>
+            <p>Verify local prices.</p>
+            <p>Use professional engineering advice.</p>
+        </div>
+    </footer>
+
+</main>
+
+
+<!-- ================= MODALS ================= -->
+
+<!-- 1. MATERIAL COMPANY RATE MODAL -->
+<div id="materialModal" class="material-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeMaterialModal(event)" style="display: none;">
+    <div class="material-modal-content" onclick="event.stopPropagation()">
+        <div class="material-modal-header">
+            <div>
+                <span class="modal-eyebrow">COMPANY RATE COMPARISON</span>
+                <h2 id="modalTitle">🧱 Material Rates</h2>
+            </div>
+            <button class="material-modal-close" onclick="closeMaterialModal()" aria-label="Close rate comparison">✕</button>
+        </div>
+        <div id="modalBody">
+            <!-- Injected by script.js -->
+        </div>
+    </div>
+</div>
+
+
+<!-- 2. GALLERY LIGHTBOX MODAL -->
+<div class="gallery-lightbox-modal" id="galleryLightboxModal" style="display:none;" onclick="closeGalleryLightboxOutside(event)">
+    <div class="gallery-lightbox-inner" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeGalleryLightbox()">✕</button>
+        <button class="lightbox-prev" onclick="galleryLightboxNav(-1)">‹</button>
+        <img class="lightbox-img-full" id="lightboxImgFull" src="" alt="House Design">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+        <button class="lightbox-next" onclick="galleryLightboxNav(1)">›</button>
+    </div>
+</div>
+
+
+<!-- 3. IMAGE PREVIEW LIGHTBOX MODAL -->
+<div id="imageLightbox" class="image-lightbox" onclick="closeLightbox(event)" style="display: none;">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img id="lightboxImg" src="" alt="Preview">
+        <div class="lightbox-meta">
+            <div>
+                <h3 id="lightboxTitle" style="font-size: 18px; margin-bottom: 4px;"></h3>
+                <p id="lightboxSub" style="font-size: 13px; color: var(--muted);"></p>
+            </div>
+            <button class="primary-btn" onclick="closeLightbox()">Close Preview</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 4. PROJECT MANAGEMENT & SETTINGS MODAL -->
+<div id="projectModal" class="material-modal" role="dialog" aria-modal="true" onclick="closeProjectModal(event)" style="display: none;">
+    <div class="material-modal-content" onclick="event.stopPropagation()" style="max-width: 520px;">
+        <div class="material-modal-header">
+            <div>
+                <span class="modal-eyebrow">PROJECT MANAGEMENT</span>
+                <h2>⚙️ Project Settings &amp; Data</h2>
+            </div>
+            <button class="material-modal-close" onclick="closeProjectModal()">✕</button>
+        </div>
+        <div style="padding: 20px 0;">
+            <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">
+                Manage your saved home construction plan, export backups, or restore defaults.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <button class="primary-btn" onclick="exportProjectData()" style="justify-content: center;">
+                    💾 Download JSON Project Backup
+                </button>
+                <label class="secondary-btn" style="justify-content: center; cursor: pointer; text-align: center; display: block; padding: 12px;">
+                    📂 Restore Project from JSON
+                    <input type="file" accept=".json" onchange="importProjectData(event)" style="display: none;">
+                </label>
+                <button class="secondary-btn" onclick="resetProject()" style="justify-content: center; color: var(--danger); border-color: var(--danger);">
+                    🔄 Reset All Quantities &amp; Rates to Default
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 5. QUICK SHORTCUTS & HELP MODAL -->
+<div id="shortcutsModal" class="material-modal" role="dialog" aria-modal="true" onclick="closeShortcutsModal(event)" style="display: none;">
+    <div class="material-modal-content" onclick="event.stopPropagation()" style="max-width: 520px;">
+        <div class="material-modal-header">
+            <div>
+                <span class="modal-eyebrow">QUICK HELP</span>
+                <h2>ℹ️ Tips &amp; Keyboard Shortcuts</h2>
+            </div>
+            <button class="material-modal-close" onclick="closeShortcutsModal()">✕</button>
+        </div>
+        <div style="padding: 20px 0; font-size: 14px; color: var(--text);">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                    <span>Global Search</span>
+                    <kbd style="background: var(--surface2); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);">Type in Topbar</kbd>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                    <span>Navigate Search Results</span>
+                    <kbd style="background: var(--surface2); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);">↓ / ↑ / Enter</kbd>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                    <span>Close Any Modal / Lightbox</span>
+                    <kbd style="background: var(--surface2); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);">Esc</kbd>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                    <span>Gallery Next / Prev</span>
+                    <kbd style="background: var(--surface2); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);">→ / ←</kbd>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Print Estimate Report</span>
+                    <kbd style="background: var(--surface2); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);">Ctrl + P / Cmd + P</kbd>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast"></div>
+
+<!-- MAIN APP SCRIPT -->
+<script src="./script.js"></script>
+
+</body>
+</html>
