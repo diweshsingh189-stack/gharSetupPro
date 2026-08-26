@@ -681,106 +681,57 @@ body.dark .welcome-card {
 
 
 .house-illustration {
-
-    width: 330px;
-
+    width: 280px;
     position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+}
 
+.house-card-preview {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    aspect-ratio: 16/11;
+    background: #0f172a;
+}
+
+.house-card-preview:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 136, 255, 0.3);
+}
+
+.hero-house-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.house-card-preview:hover .hero-house-img {
+    transform: scale(1.05);
+}
+
+.house-badge-floating {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
     right: 10px;
-
-    bottom: 0;
-
-    opacity: .95;
-
-}
-
-
-.house {
-
-    position: relative;
-
-    width: 270px;
-
-    margin: auto;
-
-}
-
-
-.roof {
-
-    width: 250px;
-
-    height: 100px;
-
-    background: #24384f;
-
-    transform: skew(-25deg);
-
-    margin-left: 20px;
-
-    border-radius: 5px;
-
-}
-
-
-.house-body {
-
-    width: 240px;
-
-    height: 130px;
-
-    background: #dce8f2;
-
-    margin: -5px auto 0;
-
-    position: relative;
-
-    border: 5px solid #9db1c3;
-
-}
-
-
-.window {
-
-    width: 48px;
-
-    height: 48px;
-
-    background: #69a7db;
-
-    border: 5px solid white;
-
-    position: absolute;
-
-    top: 20px;
-
-}
-
-
-.window:nth-child(1) {
-    left: 20px;
-}
-
-
-.window:nth-child(2) {
-    right: 20px;
-}
-
-
-.door {
-
-    width: 48px;
-
-    height: 80px;
-
-    background: #7a4c38;
-
-    position: absolute;
-
-    bottom: 0;
-
-    left: 95px;
-
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 
@@ -2294,15 +2245,23 @@ footer a:hover {
     }
 
     .welcome-grid {
-
         grid-template-columns: 1fr;
+    }
 
+    .welcome-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
     }
 
     .house-illustration {
-
-        display: none;
-
+        position: static;
+        transform: none;
+        width: 240px;
+        flex-shrink: 0;
+        display: block;
     }
 
     .construction-grid {
@@ -4266,6 +4225,26 @@ body.sidebar-open {
     .welcome-card {
         padding: 20px 16px;
         border-radius: 16px;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 18px !important;
+    }
+
+    .house-illustration {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+        right: auto !important;
+        top: auto !important;
+        display: block !important;
+        margin-top: 6px;
+    }
+
+    .house-card-preview {
+        aspect-ratio: 16/9;
+        width: 100%;
+        max-height: 190px;
     }
 
     .primary-btn, .secondary-btn {
