@@ -532,101 +532,57 @@ button {
 
 
 .welcome-card {
-
-    min-height: 245px;
-
+    min-height: 220px;
     border: 1px solid var(--border);
-
-    background:
-        linear-gradient(
-            110deg,
-            var(--surface),
-            #edf5ff
-        );
-
-    border-radius: 9px;
-
-    padding: 30px;
-
+    background: linear-gradient(110deg, var(--surface), #edf5ff);
+    border-radius: 16px;
+    padding: 26px 30px;
     position: relative;
-
     overflow: hidden;
-
     display: flex;
-
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-
+    gap: 24px;
 }
-
 
 body.dark .welcome-card {
-
-    background:
-        linear-gradient(
-            110deg,
-            #111a27,
-            #102442
-        );
-
+    background: linear-gradient(110deg, #111a27, #102442);
 }
-
 
 .tag,
 .page-header > span,
 .feedback-grid > div > span {
-
-    font-size: 9px;
-
+    font-size: 9.5px;
     font-weight: 800;
-
     color: var(--primary);
-
     letter-spacing: 1.5px;
-
 }
-
 
 .welcome-content {
-
-    max-width: 620px;
-
+    flex: 1 1 auto;
+    min-width: 0;
     z-index: 2;
-
 }
-
 
 .welcome-card h1 {
-
-    font-size: 34px;
-
-    line-height: 1.1;
-
-    margin: 12px 0;
-
-    max-width: 570px;
-
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 10px 0;
+    max-width: 100%;
 }
-
 
 .welcome-card h1 span {
-
     display: block;
-
     color: var(--primary);
-
 }
 
-
 .welcome-card p {
-
     color: var(--muted);
-
-    max-width: 600px;
-
     line-height: 1.6;
-
-    font-size: 13px;
-
+    font-size: 13.5px;
+    max-width: 100%;
+    margin-bottom: 4px;
 }
 
 
@@ -681,11 +637,11 @@ body.dark .welcome-card {
 
 
 .house-illustration {
-    width: 280px;
-    position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
+    flex: 0 0 240px;
+    width: 240px;
+    max-width: 240px;
+    position: static;
+    transform: none;
     z-index: 3;
 }
 
