@@ -41,6 +41,9 @@
         <button class="nav-item" onclick="showPage('construction', this)">
             <span>⚒</span> Construction
         </button>
+        <button class="nav-item" onclick="showPage('tiles', this)">
+            <span>▦</span> Tiles &amp; Flooring
+        </button>
         <button class="nav-item" onclick="showPage('checklist', this)">
             <span>✓</span> Checklist
         </button>
@@ -394,6 +397,12 @@
                 <small>Foundation to finishing</small>
             </button>
 
+            <button onclick="showPage('tiles')">
+                <b>▦</b>
+                <strong>Tiles &amp; Flooring</strong>
+                <small>Top brands, rates &amp; calculator</small>
+            </button>
+
             <button onclick="showPage('checklist')">
                 <b>✓</b>
                 <strong>Checklist</strong>
@@ -660,6 +669,392 @@
                     <div id="constructionPreviewMaterial" class="preview-material">Material details appear here</div>
                 </div>
             </aside>
+        </div>
+    </section>
+
+
+    <!-- ================= 05B. TILES & FLOORING ================= -->
+    <section id="tiles" class="page">
+        <div class="page-header">
+            <span>TILES &amp; FLOORING DIRECTORY</span>
+            <h1>
+                Top brands,
+                <em>rates &amp; designs.</em>
+            </h1>
+            <p>
+                Compare India's leading tile companies, latest market rates per sq.ft and per box, design finishes, and calculate exact room tile and box requirements.
+            </p>
+        </div>
+
+        <!-- TILES MARKET STATS BAR -->
+        <div class="tiles-stats-bar">
+            <div class="tile-stat-card">
+                <span class="stat-icon">💎</span>
+                <div>
+                    <small>DOUBLE CHARGE VITRIFIED</small>
+                    <strong>₹45 - ₹75 <small>/ sq.ft</small></strong>
+                    <span>Best for Living Room &amp; Corridors</span>
+                </div>
+            </div>
+            <div class="tile-stat-card">
+                <span class="stat-icon">✨</span>
+                <div>
+                    <small>GLAZED VITRIFIED (GVT/PGVT)</small>
+                    <strong>₹60 - ₹160 <small>/ sq.ft</small></strong>
+                    <span>High Gloss Marble &amp; Carving Finishes</span>
+                </div>
+            </div>
+            <div class="tile-stat-card">
+                <span class="stat-icon">🚿</span>
+                <div>
+                    <small>CERAMIC WALL &amp; BATHROOM</small>
+                    <strong>₹32 - ₹58 <small>/ sq.ft</small></strong>
+                    <span>Waterproof &amp; Anti-Skid Solutions</span>
+                </div>
+            </div>
+            <div class="tile-stat-card">
+                <span class="stat-icon">🛡️</span>
+                <div>
+                    <small>HEAVY DUTY PARKING (12-16MM)</small>
+                    <strong>₹48 - ₹95 <small>/ sq.ft</small></strong>
+                    <span>High Load Bearing &amp; Weather Proof</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TILES FILTER TABS & SEARCH -->
+        <div class="tiles-toolbar">
+            <div class="tiles-filter-tabs" id="tilesCategoryTabs">
+                <button class="tile-filter-btn active" onclick="filterTilesCategory('all', this)">All Brands (10)</button>
+                <button class="tile-filter-btn" onclick="filterTilesCategory('double-charge', this)">Double Charge</button>
+                <button class="tile-filter-btn" onclick="filterTilesCategory('gvt', this)">Glazed Vitrified (GVT)</button>
+                <button class="tile-filter-btn" onclick="filterTilesCategory('wall', this)">Wall &amp; Bathroom</button>
+                <button class="tile-filter-btn" onclick="filterTilesCategory('parking', this)">Parking &amp; Heavy Duty</button>
+                <button class="tile-filter-btn" onclick="filterTilesCategory('wooden', this)">Wooden Planks</button>
+                <button class="tile-filter-btn" onclick="filterTilesCategory('luxury', this)">Luxury Mega Slabs</button>
+            </div>
+            <div class="tiles-search-box">
+                <span>🔍</span>
+                <input type="text" id="tilesLocalSearch" placeholder="Search brand, finish or series..." oninput="filterTilesSearch()">
+            </div>
+        </div>
+
+        <!-- TILES BRANDS GRID -->
+        <div class="tiles-brands-grid" id="tilesBrandsGrid">
+            <!-- Populated dynamically by script.js -->
+        </div>
+
+        <!-- INTERACTIVE TILE & BOX CALCULATOR -->
+        <div class="tile-calc-section">
+            <div class="tile-calc-header">
+                <div class="calc-icon-badge">📐</div>
+                <div>
+                    <span class="calc-sub">SMART ESTIMATOR</span>
+                    <h2>Room Tile &amp; Box Quantity Calculator</h2>
+                    <p>Enter room measurements and select tile size to compute exact box count, tiles needed, wastage, and cost.</p>
+                </div>
+            </div>
+
+            <div class="tile-calc-grid">
+                <div class="tile-calc-form">
+                    <div class="calc-form-row">
+                        <div class="calc-input-group">
+                            <label for="tileRoomLength">Room Length (ft)</label>
+                            <input type="number" id="tileRoomLength" value="15" min="1" step="any" oninput="calculateTileEstimator()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="tileRoomWidth">Room Width (ft)</label>
+                            <input type="number" id="tileRoomWidth" value="12" min="1" step="any" oninput="calculateTileEstimator()">
+                        </div>
+                    </div>
+
+                    <div class="calc-form-row">
+                        <div class="calc-input-group">
+                            <label for="tileDimensionSelect">Tile Size (Dimensions)</label>
+                            <select id="tileDimensionSelect" onchange="calculateTileEstimator()">
+                                <option value="2x2" data-sqft="4" data-boxpcs="4" selected>2x2 ft (600x600 mm) · Standard Floor</option>
+                                <option value="4x2" data-sqft="8" data-boxpcs="2">4x2 ft (1200x600 mm) · Premium Large Floor</option>
+                                <option value="2.6x5.3" data-sqft="13.78" data-boxpcs="2">800x1600 mm (2.6x5.3 ft) · Luxury Slab</option>
+                                <option value="1x1" data-sqft="1" data-boxpcs="9">1x1 ft (300x300 mm) · Bathroom / Parking</option>
+                                <option value="1x1.5" data-sqft="1.5" data-boxpcs="6">1x1.5 ft (300x450 mm) · Wall Digital</option>
+                                <option value="0.67x4" data-sqft="2.67" data-boxpcs="4">8x48 inch (200x1200 mm) · Wooden Plank</option>
+                                <option value="1.3x1.3" data-sqft="1.72" data-boxpcs="5">400x400 mm · Heavy Duty Paver</option>
+                            </select>
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="tileCustomRate">Tile Rate (₹ / sq.ft)</label>
+                            <input type="number" id="tileCustomRate" value="65" min="10" step="any" oninput="calculateTileEstimator()">
+                        </div>
+                    </div>
+
+                    <div class="calc-form-row">
+                        <div class="calc-input-group">
+                            <label for="tileWastageSelect">Cutting &amp; Wastage Margin</label>
+                            <select id="tileWastageSelect" onchange="calculateTileEstimator()">
+                                <option value="5" selected>5% (Standard Straight Laying)</option>
+                                <option value="10">10% (Diagonal / Brick Pattern / L-shaped)</option>
+                                <option value="15">15% (Herringbone / Complex Cuts)</option>
+                            </select>
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="tileIncludeAdhesive">Include Tile Adhesive &amp; Grout</label>
+                            <select id="tileIncludeAdhesive" onchange="calculateTileEstimator()">
+                                <option value="yes" selected>Yes (₹18 / sq.ft approx.)</option>
+                                <option value="no">No (Only Tile Cost)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tile-calc-results">
+                    <div class="calc-result-header">
+                        <span>ESTIMATED SUMMARY</span>
+                        <h3 id="tileCalcTotalCost">₹14,976</h3>
+                        <small>Total Estimated Material Budget</small>
+                    </div>
+
+                    <div class="calc-result-breakdown">
+                        <div class="res-item">
+                            <span>Room Carpet Area</span>
+                            <strong id="tileCalcCarpetArea">180.0 sq.ft</strong>
+                        </div>
+                        <div class="res-item">
+                            <span>Total Area with Wastage</span>
+                            <strong id="tileCalcTotalArea">189.0 sq.ft</strong>
+                        </div>
+                        <div class="res-item highlight">
+                            <span>Total Boxes Required</span>
+                            <strong id="tileCalcBoxes">12 Boxes</strong>
+                        </div>
+                        <div class="res-item">
+                            <span>Total Tile Pieces</span>
+                            <strong id="tileCalcPieces">48 Pieces</strong>
+                        </div>
+                        <div class="res-item">
+                            <span>Tiles Cost</span>
+                            <strong id="tileCalcTileCost">₹12,285</strong>
+                        </div>
+                        <div class="res-item">
+                            <span>Adhesive &amp; Epoxy Grout</span>
+                            <strong id="tileCalcAdhesiveCost">₹3,402</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROOM BY ROOM TILE SELECTION GUIDE -->
+        <div class="tile-guide-section">
+            <div class="section-header">
+                <div>
+                    <span>EXPERT RECOMMENDATIONS</span>
+                    <h2>Room-by-Room Tile Buying Guide</h2>
+                </div>
+            </div>
+
+            <div class="tile-room-grid">
+                <div class="tile-room-card">
+                    <div class="room-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&fit=crop&q=80" alt="Living Room Tiles" loading="lazy">
+                        <span class="room-badge">01 · LIVING ROOM</span>
+                    </div>
+                    <div class="room-body">
+                        <h3>Living Room &amp; Drawing Hall</h3>
+                        <p class="room-rec"><strong>Best Pick:</strong> 4x2 ft (600x1200 mm) or 800x1600 mm Glazed Vitrified (GVT / PGVT) High Gloss</p>
+                        <ul class="room-features">
+                            <li>✓ Seamless look with minimal grout joints</li>
+                            <li>✓ High reflective index makes space look larger</li>
+                            <li>✓ Stain-resistant &amp; easy mop cleaning</li>
+                        </ul>
+                        <div class="room-price-est">Approx. ₹55 - ₹120 / sq.ft</div>
+                    </div>
+                </div>
+
+                <div class="tile-room-card">
+                    <div class="room-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&fit=crop&q=80" alt="Bedroom Tiles" loading="lazy">
+                        <span class="room-badge">02 · BEDROOM</span>
+                    </div>
+                    <div class="room-body">
+                        <h3>Master &amp; Guest Bedrooms</h3>
+                        <p class="room-rec"><strong>Best Pick:</strong> Wooden Plank Vitrified (8x48") or Satin Matte Finish Vitrified (2x2 ft)</p>
+                        <ul class="room-features">
+                            <li>✓ Warm, cozy natural wood texture without termite risk</li>
+                            <li>✓ Non-glare satin surface comfortable on eyes &amp; feet</li>
+                            <li>✓ Highly durable with scratch resistant coating</li>
+                        </ul>
+                        <div class="room-price-est">Approx. ₹50 - ₹95 / sq.ft</div>
+                    </div>
+                </div>
+
+                <div class="tile-room-card">
+                    <div class="room-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&fit=crop&q=80" alt="Bathroom Tiles" loading="lazy">
+                        <span class="room-badge">03 · BATHROOM</span>
+                    </div>
+                    <div class="room-body">
+                        <h3>Bathroom &amp; Powder Rooms</h3>
+                        <p class="room-rec"><strong>Best Pick:</strong> Anti-Skid Matte Floor (1x1 ft) + 3D Highlighter Digital Wall (1x1.5 ft or 1x2 ft)</p>
+                        <ul class="room-features">
+                            <li>✓ R10 Anti-Skid rating prevents slips when wet</li>
+                            <li>✓ Full height wall tiling prevents seepage &amp; fungus</li>
+                            <li>✓ Darker floor + lighter wall gives stunning depth</li>
+                        </ul>
+                        <div class="room-price-est">Approx. ₹35 - ₹65 / sq.ft</div>
+                    </div>
+                </div>
+
+                <div class="tile-room-card">
+                    <div class="room-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&fit=crop&q=80" alt="Kitchen Tiles" loading="lazy">
+                        <span class="room-badge">04 · KITCHEN</span>
+                    </div>
+                    <div class="room-body">
+                        <h3>Kitchen Floor &amp; Backsplash</h3>
+                        <p class="room-rec"><strong>Best Pick:</strong> Stain-Resistant Matte Floor (2x2 ft) + High Gloss Ceramic Backsplash (300x600 mm)</p>
+                        <ul class="room-features">
+                            <li>✓ Zero porosity prevents oil &amp; turmeric stain absorption</li>
+                            <li>✓ Heat &amp; steam resistant backsplash behind stove</li>
+                            <li>✓ Easy wiping with soapy water</li>
+                        </ul>
+                        <div class="room-price-est">Approx. ₹45 - ₹80 / sq.ft</div>
+                    </div>
+                </div>
+
+                <div class="tile-room-card">
+                    <div class="room-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&fit=crop&q=80" alt="Balcony Tiles" loading="lazy">
+                        <span class="room-badge">05 · BALCONY &amp; TERRACE</span>
+                    </div>
+                    <div class="room-body">
+                        <h3>Balcony, Deck &amp; Terrace</h3>
+                        <p class="room-rec"><strong>Best Pick:</strong> Cool Roof Reflective Tiles or Rustic Weather-Proof Matte Exterior Tiles</p>
+                        <ul class="room-features">
+                            <li>✓ Cool Roof SRI > 100 reduces indoor temperature by 5°C</li>
+                            <li>✓ UV &amp; frost resistant - does not fade in sunlight</li>
+                            <li>✓ Textured grip prevents wet monsoon skids</li>
+                        </ul>
+                        <div class="room-price-est">Approx. ₹48 - ₹85 / sq.ft</div>
+                    </div>
+                </div>
+
+                <div class="tile-room-card">
+                    <div class="room-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&fit=crop&q=80" alt="Parking Tiles" loading="lazy">
+                        <span class="room-badge">06 · PARKING &amp; DRIVEWAY</span>
+                    </div>
+                    <div class="room-body">
+                        <h3>Parking, Porch &amp; Driveway</h3>
+                        <p class="room-rec"><strong>Best Pick:</strong> 12mm / 16mm Full Body Heavy Duty Vitrified (Johnson Endura / Somany)</p>
+                        <ul class="room-features">
+                            <li>✓ Ultra-high load bearing capacity (can support SUVs &amp; trucks)</li>
+                            <li>✓ Scratch-proof from tyres, pebbles, and stand friction</li>
+                            <li>✓ Full body material - color stays consistent even if chipped</li>
+                        </ul>
+                        <div class="room-price-est">Approx. ₹55 - ₹95 / sq.ft</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CURRENT MARKET RATE COMPARISON MATRIX TABLE -->
+        <div class="tile-matrix-section">
+            <div class="section-header">
+                <div>
+                    <span>MARKET BENCHMARK</span>
+                    <h2>Tile Types &amp; Current Market Rate Matrix</h2>
+                </div>
+            </div>
+
+            <div class="table-scroll">
+                <table class="tile-matrix-table">
+                    <thead>
+                        <tr>
+                            <th>TILE TYPE</th>
+                            <th>STANDARD SIZES</th>
+                            <th>THICKNESS</th>
+                            <th>CURRENT RATE / SQ.FT</th>
+                            <th>AVG. BOX COVERAGE</th>
+                            <th>TOP RECOMMENDED BRANDS</th>
+                            <th>IDEAL APPLICATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Double Charge Vitrified</strong></td>
+                            <td>600x600 mm (2x2 ft)<br>800x800 mm</td>
+                            <td>9 - 10 mm</td>
+                            <td><strong class="price-highlight">₹45 - ₹75</strong></td>
+                            <td>16 sq.ft (4 pcs/box)</td>
+                            <td>Kajaria, Somany, Orientbell, AGL</td>
+                            <td>Living Room, Hall, Corridors</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glazed Vitrified (GVT / PGVT)</strong></td>
+                            <td>600x1200 mm (4x2 ft)<br>800x1600 mm</td>
+                            <td>9 - 9.5 mm</td>
+                            <td><strong class="price-highlight">₹60 - ₹140</strong></td>
+                            <td>15.5 - 16 sq.ft (2 pcs/box)</td>
+                            <td>Kajaria Eternity, Nitco, Simpolo, RAK</td>
+                            <td>Luxury Living, Bedrooms, Accent Walls</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Digital Ceramic Wall Tiles</strong></td>
+                            <td>300x450 mm (1x1.5 ft)<br>300x600 mm</td>
+                            <td>7 - 8 mm</td>
+                            <td><strong class="price-highlight">₹32 - ₹55</strong></td>
+                            <td>9 - 12 sq.ft (6-8 pcs/box)</td>
+                            <td>Somany, Kajaria, Orientbell, Cera</td>
+                            <td>Bathroom &amp; Kitchen Walls</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anti-Skid Ceramic Floor Tiles</strong></td>
+                            <td>300x300 mm (1x1 ft)<br>400x400 mm</td>
+                            <td>7.5 - 8.5 mm</td>
+                            <td><strong class="price-highlight">₹35 - ₹58</strong></td>
+                            <td>9 sq.ft (9 pcs/box)</td>
+                            <td>Johnson, Somany Slip Shield, AGL</td>
+                            <td>Bathroom Floors, Utility, Wash Area</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wooden Plank Vitrified Tiles</strong></td>
+                            <td>200x1200 mm (8x48")<br>200x1000 mm</td>
+                            <td>9 - 10 mm</td>
+                            <td><strong class="price-highlight">₹60 - ₹110</strong></td>
+                            <td>10.3 - 12.9 sq.ft (4-5 pcs/box)</td>
+                            <td>Varmora, Kajaria, Nitco, Somany</td>
+                            <td>Master Bedrooms, Balconies, Lounges</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heavy Duty Parking / Endura</strong></td>
+                            <td>300x300 mm<br>400x400 mm</td>
+                            <td>12 - 16 mm</td>
+                            <td><strong class="price-highlight">₹55 - ₹95</strong></td>
+                            <td>7 - 8 sq.ft (7-8 pcs/box)</td>
+                            <td>Johnson Endura, Somany Maxima, Orientbell</td>
+                            <td>Car Porch, Driveway, Commercial Areas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cool Roof Solar Reflective (SRI)</strong></td>
+                            <td>300x300 mm<br>400x400 mm</td>
+                            <td>8 - 10 mm</td>
+                            <td><strong class="price-highlight">₹48 - ₹78</strong></td>
+                            <td>9 sq.ft (9 pcs/box)</td>
+                            <td>Orientbell Cool Tiles, Johnson Endura</td>
+                            <td>Open Terrace, Rooftop, Sun Decks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Large Format Mega Slabs</strong></td>
+                            <td>800x1600 mm<br>1200x2400 mm</td>
+                            <td>9 - 15 mm</td>
+                            <td><strong class="price-highlight">₹95 - ₹220</strong></td>
+                            <td>27.5 - 31 sq.ft (1-2 pcs/box)</td>
+                            <td>Simpolo Smart Marble, RAK Maximus, Nitco</td>
+                            <td>Seamless Grand Floors, Kitchen Islands</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 
@@ -954,6 +1349,23 @@
 </div>
 
 
+<!-- 6. TILE BRAND DETAILS MODAL -->
+<div id="tileBrandModal" class="material-modal" role="dialog" aria-modal="true" onclick="closeTileModal(event)" style="display: none;">
+    <div class="material-modal-content tile-modal-wide" onclick="event.stopPropagation()">
+        <div class="material-modal-header">
+            <div>
+                <span class="modal-eyebrow" id="tileModalBadge">BRAND PROFILE &amp; SPECS</span>
+                <h2 id="tileModalTitle">Kajaria Ceramics</h2>
+            </div>
+            <button class="material-modal-close" onclick="closeTileModal()">✕</button>
+        </div>
+        <div class="tile-modal-body" id="tileModalContent">
+            <!-- Populated dynamically by script.js -->
+        </div>
+    </div>
+</div>
+
+
 <!-- SIDEBAR BACKDROP OVERLAY FOR MOBILE -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
 
@@ -990,6 +1402,14 @@
 
 <!-- MAIN APP SCRIPT -->
 <script src="./script.js"></script>
+
+<!-- VERCEL WEB ANALYTICS & SPEED INSIGHTS -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>

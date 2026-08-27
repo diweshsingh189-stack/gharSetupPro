@@ -183,7 +183,8 @@ const toolsCatalog = [
     { id: "floor-calc", name: "Floor Area Calculator", icon: "📐", targetId: "floorLength", page: "measurements", description: "Calculate square footage for rooms and floors." },
     { id: "wall-calc", name: "Wall & Plaster Area Calculator", icon: "🧱", targetId: "wallLength", page: "measurements", description: "Calculate wall area deducting doors and windows." },
     { id: "concrete-calc", name: "Concrete Volume Calculator", icon: "🏗️", targetId: "concreteLength", page: "measurements", description: "Calculate rectangular concrete volume in cubic ft." },
-    { id: "cost-calc", name: "Area Cost Estimator", icon: "💰", targetId: "costArea", page: "measurements", description: "Estimate overall budget for any specific area." }
+    { id: "cost-calc", name: "Area Cost Estimator", icon: "💰", targetId: "costArea", page: "measurements", description: "Estimate overall budget for any specific area." },
+    { id: "tile-calc", name: "Tiles & Box Quantity Calculator", icon: "▦", targetId: "tileRoomLength", page: "tiles", description: "Calculate room tiles, box quantity, wastage and cost." }
 ];
 
 /* Pages / Sections Catalog */
@@ -193,6 +194,7 @@ const pagesCatalog = [
     { id: "materials", name: "Material Guide & Library", icon: "🧱", description: "Detailed purpose, specifications and rates for materials." },
     { id: "measurements", name: "Measurements & Calculators", icon: "📐", description: "Floor, wall, concrete volume and area cost tools." },
     { id: "construction", name: "Construction Roadmap (14 Stages)", icon: "🏗️", description: "Complete phase-by-phase building sequence." },
+    { id: "tiles", name: "Tiles & Flooring Directory", icon: "▦", description: "Top 10 tile brands, current rates, designs & room calculator." },
     { id: "checklist", name: "Project Checklist", icon: "✅", description: "Track 27+ critical inspection tasks." },
     { id: "reports", name: "Reports & Print Summary", icon: "📄", description: "Generate and print PDF summary of construction costs." },
     { id: "feedback", name: "Feedback & Suggestions", icon: "⭐", description: "Submit reviews and feature requests." }
@@ -392,6 +394,7 @@ function showPage(page, button = null) {
         materials: "Materials",
         measurements: "Measurements",
         construction: "Construction",
+        tiles: "Tiles & Flooring Directory",
         checklist: "Checklist",
         reports: "Reports",
         feedback: "Feedback"
@@ -1545,6 +1548,12 @@ function filterCurrentPage(query, pageId) {
             const isMatch = !query || searchData.includes(query);
             card.style.display = isMatch ? "block" : "none";
         });
+    } else if (pageId === "tiles") {
+        document.querySelectorAll("#tilesBrandsGrid .tile-brand-card").forEach(card => {
+            const searchData = card.getAttribute("data-search") || "";
+            const isMatch = !query || searchData.includes(query);
+            card.style.display = isMatch ? "flex" : "none";
+        });
     } else if (pageId === "checklist") {
         let matchCount = 0;
         document.querySelectorAll("#checklistContainer .check-item").forEach(item => {
@@ -1749,42 +1758,466 @@ function exportProjectData() {
     showToast("Project plan downloaded as JSON 💾");
 }
 
-function importProjectData(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
+/* =====================================================
+            TILES & FLOORING ENGINE & DATABASE
+===================================================== */
+const tilesBrandsData = [
+    {
+        id: "kajaria",
+        name: "Kajaria Ceramics",
+        tagline: "India's No. 1 Tile Company",
+        badge: "Market Leader · #1 in India",
+        logo: "🔷",
+        priceRange: "₹45 - ₹145",
+        boxPrice: "₹1,150 - ₹3,800 / box",
+        rating: "4.9",
+        reviews: "1,840+ reviews",
+        categories: ["double-charge", "gvt", "wall", "luxury", "wooden"],
+        popularSeries: ["Eternity Glazed Vitrified", "The Royal Collection", "Kerovit Designer", "Gres Tough"],
+        sizes: ["600x600 mm (2x2 ft)", "600x1200 mm (4x2 ft)", "800x1600 mm (Mega Slab)", "300x600 mm (Wall)"],
+        finishes: ["High Gloss Polished", "Carving / Sugar Finish", "Satin Matt", "Full Body"],
+        bestFor: "Living Room, Drawing Hall, Master Bedroom & Luxury Bathrooms",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&fit=crop&q=80",
+        features: ["ISI certified zero water absorption (<0.05%)", "Stain shield technology", "Over 3,000+ live dealer showrooms across India"],
+        tip: "Kajaria's Eternity 4x2 ft series gives a virtually seamless Italian marble look at 1/4th the price."
+    },
+    {
+        id: "somany",
+        name: "Somany Ceramics",
+        tagline: "Patented VC Shield & Slip Shield",
+        badge: "Abrasion Resistant Tech",
+        logo: "🔶",
+        priceRange: "₹42 - ₹135",
+        boxPrice: "₹1,080 - ₹3,500 / box",
+        rating: "4.8",
+        reviews: "1,420+ reviews",
+        categories: ["double-charge", "gvt", "wall", "parking"],
+        popularSeries: ["Duragres GVT", "Slip Shield Anti-Bacterial", "Maxima Heavy Duty", "VC Shield Anti-Abrasion"],
+        sizes: ["600x600 mm", "600x1200 mm", "800x800 mm", "300x450 mm"],
+        finishes: ["Glossy", "Slip-Resistant Matte", "Polished Vitrified"],
+        bestFor: "Wet bathrooms, kitchen floors, high-footfall living areas",
+        image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=800&fit=crop&q=80" ,
+        features: ["Patented VC Shield scratch proof surface", "Certified anti-bacterial glaze", "High breaking strength"],
+        tip: "Choose Somany Slip Shield for elder-friendly bathrooms to prevent accidental falls."
+    },
+    {
+        id: "orientbell",
+        name: "Orientbell Tiles",
+        tagline: "Germ-Free & Cool Roof Innovations",
+        badge: "Eco & Cool Tiles Pioneer",
+        logo: "🔔",
+        priceRange: "₹40 - ₹128",
+        boxPrice: "₹1,020 - ₹3,200 / box",
+        rating: "4.7",
+        reviews: "1,190+ reviews",
+        categories: ["double-charge", "wall", "parking", "gvt"],
+        popularSeries: ["Forever Tiles (Scratch Proof)", "Sahara Double Charge", "Granalt Slabs", "Cool Roof Solar Reflective"],
+        sizes: ["600x600 mm", "600x1200 mm", "300x300 mm", "400x400 mm"],
+        finishes: ["Silk Matte", "Glossy Mirror", "Cool Solar Reflective"],
+        bestFor: "Bedrooms, children rooms, terrace roofing, kitchen backsplash",
+        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&fit=crop&q=80",
+        features: ["Tested to reduce roof heat by up to 5°C", "Anti-viral active coating", "TruLook 3D room visualizer"],
+        tip: "Orientbell Cool Roof tiles reflect 90%+ solar rays to keep top-floor rooms naturally cool in summer."
+    },
+    {
+        id: "nitco",
+        name: "Nitco Tiles",
+        tagline: "Italian Aesthetic & Luxury Vitrified",
+        badge: "Ultra Premium Designer",
+        logo: "💎",
+        priceRange: "₹55 - ₹165",
+        boxPrice: "₹1,450 - ₹4,400 / box",
+        rating: "4.8",
+        reviews: "980+ reviews",
+        categories: ["gvt", "wooden", "luxury"],
+        popularSeries: ["Made in Italy Collection", "Magnifico Large Slabs", "HD Digital Glazed", "Trattino"],
+        sizes: ["600x1200 mm", "800x1600 mm", "1200x2400 mm", "200x1200 mm (Plank)"],
+        finishes: ["Statuario Polish", "Bookmatch Italian Marble", "Wood Grain"],
+        bestFor: "Luxury villas, premium drawing rooms, TV unit feature walls",
+        image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&fit=crop&q=80",
+        features: ["Natural Italian marble texture reproduction", "Bookmatch symmetry designs", "Diamond polished gloss"],
+        tip: "Use Nitco Bookmatch slabs for your main living room wall or foyer to create an opulent centerpiece."
+    },
+    {
+        id: "johnson",
+        name: "Johnson Tiles (H & R Johnson)",
+        tagline: "Endura Industrial & Marbonite Pioneers",
+        badge: "Heavy Duty Legend · Since 1958",
+        logo: "🛡️",
+        priceRange: "₹42 - ₹140",
+        boxPrice: "₹1,080 - ₹3,600 / box",
+        rating: "4.8",
+        reviews: "1,650+ reviews",
+        categories: ["parking", "double-charge", "wall", "wooden"],
+        popularSeries: ["Endura Industrial & Parking", "Marbonite Vitrified", "Porselano", "Royal Engineered"],
+        sizes: ["600x600 mm", "300x300 mm (12mm)", "400x400 mm (15mm)", "600x1200 mm"],
+        finishes: ["Full Body Vitrified", "Heavy Duty Anti-Slip", "Glossy Marble"],
+        bestFor: "Car parking, ramps, heavy traffic hallways, kitchen & utility",
+        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&fit=crop&q=80",
+        features: ["12mm to 16mm thick heavy load capacity", "Chemical and acid resistant", "India's first tile manufacturing pioneer"],
+        tip: "Johnson Endura 15mm pavers are unbroken even under loaded SUVs and commercial vehicles."
+    },
+    {
+        id: "simpolo",
+        name: "Simpolo Ceramics",
+        tagline: "Large Format Mega Slabs & POSH Vitrified",
+        badge: "Architect's Choice",
+        logo: "🌟",
+        priceRange: "₹60 - ₹180",
+        boxPrice: "₹1,600 - ₹4,800 / box",
+        rating: "4.9",
+        reviews: "1,120+ reviews",
+        categories: ["gvt", "luxury", "wooden"],
+        popularSeries: ["iM-Pact 16mm Slabs", "Smart Marble 800x1600", "POSH Luxury Glazed", "Pro-Grip"],
+        sizes: ["800x1600 mm", "1200x2400 mm", "600x1200 mm", "200x1200 mm"],
+        finishes: ["Seamless Mirror Polish", "Honed Matt", "Sugar Touch"],
+        bestFor: "Seamless grand halls, modern kitchen islands, bathroom slabs",
+        image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&fit=crop&q=80",
+        features: ["Extreme flatness guarantee with zero curvature", "Imported SACMI presses", "Continuous vein marble patterns"],
+        tip: "Simpolo Smart Marble creates a seamless, joint-free continuous floor that rivals real Italian marble."
+    },
+    {
+        id: "varmora",
+        name: "Varmora Granito",
+        tagline: "Modern Textures & Synchro Tech",
+        badge: "Modern Designer Finishes",
+        logo: "✨",
+        priceRange: "₹45 - ₹135",
+        boxPrice: "₹1,180 - ₹3,400 / box",
+        rating: "4.7",
+        reviews: "890+ reviews",
+        categories: ["wooden", "gvt", "wall"],
+        popularSeries: ["Platinum Slabs", "Synchro Digital", "Matt Elegance", "Wood Art Planks"],
+        sizes: ["600x600 mm", "600x1200 mm", "200x1000 mm (Plank)", "800x1600 mm"],
+        finishes: ["Rustic Wood Grain", "Micro-Grain Matt", "Super White Gloss"],
+        bestFor: "Bedrooms, wooden plank floors, cozy study rooms & balconies",
+        image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&fit=crop&q=80",
+        features: ["High stain resistance Grade 5 rating", "Realistic synchronous wood grain texture", "Wide palette of Scandinavian tones"],
+        tip: "Varmora Wood Art tiles give the rich warmth of hardwood flooring with zero maintenance and water immunity."
+    },
+    {
+        id: "rak",
+        name: "RAK Ceramics India",
+        tagline: "World's Leading Luxury Lifestyle Ceramics",
+        badge: "Global Luxury Brand",
+        logo: "👑",
+        priceRange: "₹65 - ₹195",
+        boxPrice: "₹1,750 - ₹5,200 / box",
+        rating: "4.9",
+        reviews: "1,550+ reviews",
+        categories: ["luxury", "gvt", "wall"],
+        popularSeries: ["Maximus Mega Slabs", "Lounge Collection", "Concrete Minimalist", "Precious Stone Series"],
+        sizes: ["800x800 mm", "600x1200 mm", "900x1800 mm", "1200x2600 mm"],
+        finishes: ["High Gloss Polished", "Velvet Matt", "Natural Slate"],
+        bestFor: "Ultra-luxury living rooms, facade cladding, master en-suites",
+        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&fit=crop&q=80",
+        features: ["Global UAE & European standards", "Maximus slim slab technology", "Luxury resort and 5-star hotel grade"],
+        tip: "RAK Maximus slabs are the gold standard for seamless kitchen countertops and feature walls."
+    },
+    {
+        id: "agl",
+        name: "Asian Granito India (AGL)",
+        tagline: "Strong, Beautiful & Affordable Elegance",
+        badge: "Best Value & Durability",
+        logo: "💫",
+        priceRange: "₹40 - ₹125",
+        boxPrice: "₹1,050 - ₹3,200 / box",
+        rating: "4.7",
+        reviews: "1,310+ reviews",
+        categories: ["double-charge", "wall", "parking", "gvt"],
+        popularSeries: ["Grestek Vitrified", "Grandura Outdoor", "Fast Track 2x2", "MarbleX Slabs"],
+        sizes: ["600x600 mm", "600x1200 mm", "300x600 mm", "400x400 mm"],
+        finishes: ["Polished Double Charge", "Glossy Wall", "Rustic Matt"],
+        bestFor: "Budget-conscious whole home flooring, rental properties, apartments",
+        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&fit=crop&q=80",
+        features: ["High breaking strength (>1300N)", "Cost effective whole home packages", "Vast distribution network across India"],
+        tip: "AGL Fast Track 2x2 is the most economical choice for complete residential building flooring."
+    },
+    {
+        id: "cera",
+        name: "Cera Tiles",
+        tagline: "Complete Coordinated Flooring Solutions",
+        badge: "Coordinated Bath & Floor",
+        logo: "🌟",
+        priceRange: "₹42 - ₹120",
+        boxPrice: "₹1,080 - ₹3,100 / box",
+        rating: "4.7",
+        reviews: "940+ reviews",
+        categories: ["wall", "bathroom", "gvt"],
+        popularSeries: ["Lucido Vitrified Floor", "Digitale Ceramic Wall", "Refrax Gloss"],
+        sizes: ["600x600 mm", "600x1200 mm", "300x450 mm (Wall)", "300x300 mm"],
+        finishes: ["High Reflective Gloss", "Satin Smooth", "Anti-Bacterial"],
+        bestFor: "Bathroom matching floor & walls, kitchen splash, compact flats",
+        image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&fit=crop&q=80",
+        features: ["Perfect color matching with Cera sanitaryware", "Ultra smooth glaze that prevents soap scum", "Water impermeable back"],
+        tip: "Pair Cera Digitale wall tiles with matching Cera sanitaryware for a harmonious bathroom theme."
+    }
+];
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        try {
-            const data = JSON.parse(e.target.result);
-            if (data.dimensions) {
-                if (data.dimensions.length) document.getElementById("length").value = data.dimensions.length;
-                if (data.dimensions.width) document.getElementById("width").value = data.dimensions.width;
-                if (data.dimensions.floors) document.getElementById("floors").value = data.dimensions.floors;
+let activeTilesCategory = "all";
+
+function renderTilesBrands(category = "all", searchQuery = "") {
+    const grid = document.getElementById("tilesBrandsGrid");
+    if (!grid) return;
+
+    let filtered = tilesBrandsData;
+    if (category !== "all") {
+        filtered = filtered.filter(b => b.categories.includes(category));
+    }
+
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase().trim();
+        filtered = filtered.filter(b => 
+            b.name.toLowerCase().includes(q) ||
+            b.tagline.toLowerCase().includes(q) ||
+            b.popularSeries.some(s => s.toLowerCase().includes(q)) ||
+            b.finishes.some(f => f.toLowerCase().includes(q)) ||
+            b.bestFor.toLowerCase().includes(q)
+        );
+    }
+
+    if (filtered.length === 0) {
+        grid.innerHTML = `
+            <div class="tiles-empty-msg">
+                <span>🔍</span>
+                <h3>No tile brands found</h3>
+                <p>Try searching for Kajaria, Somany, Vitrified, GVT, or clear your category filter.</p>
+                <button class="primary-btn" onclick="filterTilesCategory('all')">View All Brands</button>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = filtered.map((brand, idx) => `
+        <div class="tile-brand-card" data-search="${brand.name.toLowerCase()} ${brand.tagline.toLowerCase()} ${brand.popularSeries.join(' ').toLowerCase()}">
+            <div class="brand-img-wrap" onclick="openTileModal('${brand.id}')">
+                <img src="${brand.image}" alt="${brand.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&fit=crop&q=80'">
+                <span class="brand-card-badge">${brand.badge}</span>
+                <span class="brand-rating-pill">${brand.rating} ★</span>
+            </div>
+
+            <div class="brand-card-content">
+                <div class="brand-head-row">
+                    <div>
+                        <span class="brand-logo-icon">${brand.logo}</span>
+                        <h3>${brand.name}</h3>
+                        <p class="brand-sub">${brand.tagline}</p>
+                    </div>
+                </div>
+
+                <div class="brand-rate-box">
+                    <div class="rate-sqft">
+                        <small>INDICATIVE RATE</small>
+                        <strong>${brand.priceRange} <small>/ sq.ft</small></strong>
+                    </div>
+                    <div class="rate-box-info">
+                        <small>BOX PRICE (AVG)</small>
+                        <span>${brand.boxPrice}</span>
+                    </div>
+                </div>
+
+                <div class="brand-specs-list">
+                    <div class="spec-row">
+                        <strong>Popular Series:</strong>
+                        <span>${brand.popularSeries.slice(0, 3).join(", ")}</span>
+                    </div>
+                    <div class="spec-row">
+                        <strong>Available Sizes:</strong>
+                        <span>${brand.sizes.slice(0, 2).join(", ")}</span>
+                    </div>
+                    <div class="spec-row">
+                        <strong>Ideal For:</strong>
+                        <span>${brand.bestFor}</span>
+                    </div>
+                </div>
+
+                <div class="brand-card-actions">
+                    <button class="tile-brand-btn primary" onclick="openTileModal('${brand.id}')">
+                        <span>🔍</span> View Details &amp; Catalog
+                    </button>
+                    <button class="tile-brand-btn secondary" onclick="useBrandRateInCalculator('${brand.priceRange}')">
+                        <span>⚡</span> Estimate Cost
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterTilesCategory(category, btn = null) {
+    activeTilesCategory = category;
+    if (btn) {
+        document.querySelectorAll("#tilesCategoryTabs .tile-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+    }
+    const searchInput = document.getElementById("tilesLocalSearch");
+    const query = searchInput ? searchInput.value : "";
+    renderTilesBrands(activeTilesCategory, query);
+    playSound("click");
+}
+
+function filterTilesSearch() {
+    const searchInput = document.getElementById("tilesLocalSearch");
+    const query = searchInput ? searchInput.value : "";
+    renderTilesBrands(activeTilesCategory, query);
+}
+
+function useBrandRateInCalculator(priceRangeStr) {
+    const numbers = priceRangeStr.match(/\d+/g);
+    if (numbers && numbers.length > 0) {
+        const avgRate = Math.round((Number(numbers[0]) + Number(numbers[numbers.length - 1])) / 2);
+        const rateInput = document.getElementById("tileCustomRate");
+        if (rateInput) {
+            rateInput.value = avgRate;
+            calculateTileEstimator();
+            const calcSection = document.querySelector(".tile-calc-section");
+            if (calcSection) {
+                calcSection.scrollIntoView({ behavior: "smooth", block: "center" });
             }
-            if (Array.isArray(data.items)) {
-                items = data.items;
-            }
-            if (Array.isArray(data.checklistState)) {
-                data.checklistState.forEach((val, i) => {
-                    localStorage.setItem("check-" + i, val);
-                });
-            }
-            saveProject();
-            renderEstimate();
-            renderMaterials();
-            renderChecklist();
-            updateProject();
-            renderReport();
-            closeProjectModal();
-            playSound("success");
-            showToast("Project plan imported successfully ✅");
-        } catch (err) {
-            playSound("error");
-            showToast("⚠️ Invalid JSON project file.");
+            showToast(`Applied ${priceRangeStr} (Avg: ₹${avgRate}/sq.ft) to Calculator ⚡`);
         }
-    };
-    reader.readAsText(file);
+    }
+}
+
+function calculateTileEstimator() {
+    const lengthInput = document.getElementById("tileRoomLength");
+    const widthInput = document.getElementById("tileRoomWidth");
+    const sizeSelect = document.getElementById("tileDimensionSelect");
+    const rateInput = document.getElementById("tileCustomRate");
+    const wastageSelect = document.getElementById("tileWastageSelect");
+    const adhesiveSelect = document.getElementById("tileIncludeAdhesive");
+
+    const length = parseFloat(lengthInput?.value) || 0;
+    const width = parseFloat(widthInput?.value) || 0;
+    const rate = parseFloat(rateInput?.value) || 0;
+    const wastagePct = parseFloat(wastageSelect?.value) || 5;
+    const includeAdhesive = adhesiveSelect?.value === "yes";
+
+    const selectedOption = sizeSelect?.options[sizeSelect.selectedIndex];
+    const tileSqft = parseFloat(selectedOption?.getAttribute("data-sqft")) || 4;
+    const boxPcs = parseInt(selectedOption?.getAttribute("data-boxpcs")) || 4;
+
+    const carpetArea = length * width;
+    const totalAreaWithWastage = carpetArea * (1 + wastagePct / 100);
+
+    const totalPieces = Math.ceil(totalAreaWithWastage / tileSqft);
+    const totalBoxes = Math.ceil(totalPieces / boxPcs);
+
+    const tileCost = Math.round(totalAreaWithWastage * rate);
+    const adhesiveCost = includeAdhesive ? Math.round(totalAreaWithWastage * 18) : 0;
+    const totalCost = tileCost + adhesiveCost;
+
+    const carpetEl = document.getElementById("tileCalcCarpetArea");
+    const totalAreaEl = document.getElementById("tileCalcTotalArea");
+    const boxesEl = document.getElementById("tileCalcBoxes");
+    const piecesEl = document.getElementById("tileCalcPieces");
+    const tileCostEl = document.getElementById("tileCalcTileCost");
+    const adhesiveCostEl = document.getElementById("tileCalcAdhesiveCost");
+    const totalCostEl = document.getElementById("tileCalcTotalCost");
+
+    if (carpetEl) carpetEl.innerText = `${carpetArea.toFixed(1)} sq.ft`;
+    if (totalAreaEl) totalAreaEl.innerText = `${totalAreaWithWastage.toFixed(1)} sq.ft`;
+    if (boxesEl) boxesEl.innerText = `${totalBoxes} Boxes (${boxPcs} pcs/box)`;
+    if (piecesEl) piecesEl.innerText = `${totalPieces} Pieces`;
+    if (tileCostEl) tileCostEl.innerText = money(tileCost);
+    if (adhesiveCostEl) adhesiveCostEl.innerText = money(adhesiveCost);
+    if (totalCostEl) totalCostEl.innerText = money(totalCost);
+}
+
+function openTileModal(brandId) {
+    const brand = tilesBrandsData.find(b => b.id === brandId);
+    if (!brand) return;
+
+    const modal = document.getElementById("tileBrandModal");
+    const badgeEl = document.getElementById("tileModalBadge");
+    const titleEl = document.getElementById("tileModalTitle");
+    const contentEl = document.getElementById("tileModalContent");
+
+    if (!modal || !contentEl) return;
+
+    if (badgeEl) badgeEl.innerText = brand.badge;
+    if (titleEl) titleEl.innerText = `${brand.logo} ${brand.name}`;
+
+    contentEl.innerHTML = `
+        <div class="tile-modal-grid">
+            <div class="tile-modal-img-col">
+                <img src="${brand.image}" alt="${brand.name}" class="tile-modal-hero-img" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&fit=crop&q=80'">
+                <div class="tile-modal-meta-box">
+                    <div class="meta-item">
+                        <small>MARKET RATE</small>
+                        <strong>${brand.priceRange} <small>/ sq.ft</small></strong>
+                    </div>
+                    <div class="meta-item">
+                        <small>EST. BOX RATE</small>
+                        <strong>${brand.boxPrice}</strong>
+                    </div>
+                    <div class="meta-item">
+                        <small>RATING</small>
+                        <strong>${brand.rating} ★ (${brand.reviews})</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tile-modal-info-col">
+                <div class="tile-modal-section">
+                    <h3>About ${brand.name}</h3>
+                    <p class="brand-tagline-text"><em>"${brand.tagline}"</em></p>
+                    <p class="brand-tip-box">💡 <strong>Expert Recommendation:</strong> ${brand.tip}</p>
+                </div>
+
+                <div class="tile-modal-section">
+                    <h4>🌟 Popular Collections &amp; Series</h4>
+                    <div class="modal-series-tags">
+                        ${brand.popularSeries.map(s => `<span class="modal-tag">${s}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="tile-modal-section">
+                    <h4>📐 Standard Manufacturing Dimensions</h4>
+                    <div class="modal-sizes-grid">
+                        ${brand.sizes.map(sz => `<div class="size-item"><span>▦</span> ${sz}</div>`).join('')}
+                    </div>
+                </div>
+
+                <div class="tile-modal-section">
+                    <h4>✨ Finishes &amp; Textures</h4>
+                    <div class="modal-finishes-list">
+                        ${brand.finishes.map(f => `<span class="finish-pill">✓ ${f}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="tile-modal-section">
+                    <h4>🛡️ Quality &amp; Certification Highlights</h4>
+                    <ul class="modal-features-list">
+                        ${brand.features.map(feat => `<li>✓ ${feat}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="tile-modal-footer">
+                    <button class="primary-btn" onclick="useBrandRateInCalculator('${brand.priceRange}'); closeTileModal();">
+                        ⚡ Calculate Room Cost with this Brand
+                    </button>
+                    <button class="secondary-btn" onclick="closeTileModal()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    playSound("click");
+}
+
+function closeTileModal(event = null) {
+    if (event && event.target && event.target.id !== "tileBrandModal") return;
+    const modal = document.getElementById("tileBrandModal");
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+    }
+    playSound("click");
 }
 
 function openProjectModal() {
@@ -1972,6 +2405,7 @@ document.addEventListener('keydown', function(e) {
         closeMaterialModal();
         closeProjectModal();
         closeShortcutsModal();
+        closeTileModal();
     }
 
     const galleryModal = document.getElementById('galleryLightboxModal');
@@ -1998,6 +2432,8 @@ function init() {
     renderEstimate();
     renderMaterials();
     renderStages();
+    renderTilesBrands();
+    calculateTileEstimator();
     renderChecklist();
     updateProject();
     renderReport();
